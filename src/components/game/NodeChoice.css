@@ -1,0 +1,21 @@
+.node-choice {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.node-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.node-choices .node-btn {
+  align-self: stretch;
+  text-align: left;
+  padding: 0.75rem 1.2rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0;
+  line-height: 1.4;
+}

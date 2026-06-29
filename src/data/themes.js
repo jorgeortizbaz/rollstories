@@ -1,0 +1,38 @@
+export const THEMES = {
+  dnd: {
+    '--theme-bg':          '#2c1f0e',
+    '--theme-surface':     '#f4e4c1',
+    '--theme-text':        '#3d2b1f',
+    '--theme-text-muted':  '#7a5c3a',
+    '--theme-accent':      '#8b4513',
+    '--theme-border':      'rgba(139, 69, 19, 0.3)',
+    '--theme-font-heading': "'Cinzel Decorative', serif",
+  },
+  vampire: {
+    '--theme-bg':          '#0a0005',
+    '--theme-surface':     '#1a0010',
+    '--theme-text':        '#e8c8d0',
+    '--theme-text-muted':  '#8a5060',
+    '--theme-accent':      '#8b0000',
+    '--theme-border':      'rgba(139, 0, 0, 0.3)',
+    '--theme-font-heading': "'Cinzel', serif",
+  },
+  cyberpunk: {
+    '--theme-bg':          '#020812',
+    '--theme-surface':     '#0a1628',
+    '--theme-text':        '#a0f0e0',
+    '--theme-text-muted':  '#406858',
+    '--theme-accent':      '#00ffe0',
+    '--theme-border':      'rgba(0, 255, 224, 0.3)',
+    '--theme-font-heading': "'Courier New', monospace",
+  },
+  cthulhu: {
+    '--theme-bg':          '#050a05',
+    '--theme-surface':     '#0a1a0a',
+    '--theme-text':        '#c8d8b0',
+    '--theme-text-muted':  '#587040',
+    '--theme-accent':      '#4a7a30',
+    '--theme-border':      'rgba(74, 122, 48, 0.3)',
+    '--theme-font-heading': "'EB Garamond', serif",
+  },
+};

@@ -1,0 +1,131 @@
+.node-roll {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.roll-info {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.roll-attr-label {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.roll-modifiers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.roll-modifiers strong {
+  color: var(--color-text);
+}
+
+/* ── Dado ─────────────────────────────────────────────── */
+.dice-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dice.d20 {
+  width: 100px;
+  height: 100px;
+  background: var(--color-surface);
+  border: 2px solid var(--color-accent);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.dice.d20:hover {
+  box-shadow: 0 0 24px rgba(201, 168, 76, 0.4);
+  transform: scale(1.05);
+}
+
+.dice.d20.rolling {
+  animation: diceRoll 0.08s infinite;
+  border-color: var(--color-accent-hover);
+  box-shadow: 0 0 32px rgba(201, 168, 76, 0.6);
+  cursor: default;
+}
+
+.dice.d20.done {
+  cursor: default;
+  border-color: var(--color-accent);
+}
+
+.dice-number {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  user-select: none;
+}
+
+.dice-hint {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+@keyframes diceRoll {
+  0%   { transform: rotate(0deg) scale(1.05); }
+  25%  { transform: rotate(5deg) scale(1.08); }
+  50%  { transform: rotate(0deg) scale(1.05); }
+  75%  { transform: rotate(-5deg) scale(1.08); }
+  100% { transform: rotate(0deg) scale(1.05); }
+}
+
+/* ── Resultado ────────────────────────────────────────── */
+.roll-result {
+  text-align: center;
+}
+
+.roll-total {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  color: var(--color-accent);
+}
+
+.roll-total strong {
+  font-size: 2rem;
+}
+
+.roll-breakdown {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 640px) {
+  .dice.d20 {
+    width: 80px;
+    height: 80px;
+  }
+
+  .dice-number {
+    font-size: 1.6rem;
+  }
+}

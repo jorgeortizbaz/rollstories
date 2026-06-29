@@ -1,0 +1,72 @@
+.portrait {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(13, 13, 15, 0.85);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 0.75rem;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+}
+
+.portrait-img {
+    height: 160px;
+    width: auto;
+    object-fit: contain;
+}
+
+.portrait-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.3rem 0.75rem;
+}
+
+.portrait-stat {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+}
+
+.portrait-stat-name {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+}
+
+.portrait-stat-value {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    color: var(--color-accent);
+}
+
+@media (max-width: 640px) {
+    .portrait {
+        bottom: 0.75rem;
+        right: 0.5rem;
+        padding: 0.4rem;
+        gap: 0.3rem;
+    }
+
+    .portrait-img {
+        height: 70px;
+    }
+
+    .portrait-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.15rem 0.4rem;
+    }
+
+    .portrait-stat-name {
+        font-size: 0.55rem;
+    }
+
+    .portrait-stat-value {
+        font-size: 0.65rem;
+    }
+}

@@ -1,0 +1,90 @@
+.game-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+/* ── Escena ───────────────────────────────────────────── */
+.game-scene {
+  position: relative;
+  width: 100%;
+  height: 55vh;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--color-bg);
+}
+
+.game-scene-blur {
+  position: absolute;
+  inset: -20px;
+  background-image: var(--scene-bg);
+  background-size: cover;
+  background-position: center;
+  filter: blur(16px) brightness(0.4);
+  z-index: 0;
+}
+
+.game-scene-bg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  z-index: 1;
+}
+
+.game-scene-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(13, 13, 15, 0.95) 100%
+  );
+  z-index: 2;
+}
+
+/* ── NPCs ─────────────────────────────────────────────── */
+.game-npcs {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: 2rem;
+  z-index: 3;
+}
+
+.game-npc {
+  height: 48vh;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 24px rgba(0, 0, 0, 0.9));
+}
+
+/* ── UI de texto ──────────────────────────────────────── */
+.game-ui {
+  flex: 1;
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 2rem 8rem;
+  position: relative;
+  z-index: 5;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .game-scene { height: 48vh; }
+  .game-npc { height: 40vh; }
+  .game-ui { padding: 1.5rem 1.5rem 7rem; }
+}
+
+@media (max-width: 640px) {
+  .game-scene { height: 35vh; }
+  .game-npc { height: 28vh; max-width: 42vw; }
+  .game-npcs { gap: 0.5rem; }
+  .game-ui { padding: 1rem 1rem 7rem; }
+}

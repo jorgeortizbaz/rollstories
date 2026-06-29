@@ -1,0 +1,71 @@
+/* ── Fuentes ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+@font-face {
+  font-family: 'BlackFlag';
+  src: url('./assets/fonts/BlackFlag.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --color-bg:             #0d0d0f;
+  --color-surface:        #1a1a1f;
+  --color-surface-hover:  #222228;
+  --color-border:         rgba(255, 255, 255, 0.08);
+  --color-text:           #e8e0d0;
+  --color-text-muted:     #8a8070;
+  --color-accent:         #c9a84c;
+  --color-accent-hover:   #e0bc5a;
+
+  --font-heading: 'Cinzel', serif;
+  --font-body:    'EB Garamond', serif;
+
+  --radius:    8px;
+  --radius-lg: 16px;
+
+  --transition: 0.2s ease;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-accent);
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--color-accent);
+  background: transparent;
+  color: var(--color-accent);
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--radius);
+  transition: background var(--transition), color var(--transition);
+}
+
+button:hover {
+  background: var(--color-accent);
+  color: #0d0d0f;
+}

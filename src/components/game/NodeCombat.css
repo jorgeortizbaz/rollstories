@@ -1,0 +1,27 @@
+.node-combat {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.combat-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.combat-label {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.combat-injured {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: #bf6767;
+  letter-spacing: 0.05em;
+}
