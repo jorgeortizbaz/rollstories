@@ -1,7 +1,9 @@
 import { createContext, useContext, useState } from 'react';
 import es from '../i18n/es';
+import en from '../i18n/en';
+import ru from '../i18n/ru';
 
-const translations = { es };
+const translations = { es, en, ru };
 
 const LanguageContext = createContext(null);
 
@@ -32,3 +34,9 @@ export function useLanguage() {
   }
   return context;
 }
+
+export const LANGUAGE_INFO = {
+  es: { label: 'Español', flag: 'fi-es' },
+  en: { label: 'English', flag: 'fi-gb' },
+  ru: { label: 'Русский', flag: 'fi-ru' },
+};
