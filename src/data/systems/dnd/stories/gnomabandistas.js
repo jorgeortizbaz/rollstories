@@ -15,9 +15,9 @@ export const GNOMABANDISTAS_NODES = {
     type: 'narration',
     scene: 'escena_ciudad.png',
     npcs: [],
-    text: (character) => `Las campanas de Valdris llevan horas repicando sin parar. Llegas a la ciudad justo cuando los rumores ya corren por las calles como ratas: alguien robó la cámara del tesoro del monarca durante la noche. Nadie sabe cómo. Nadie sabe quién.
+    text: (character) => `Las campanas de Valdris llevan horas repicando, y su eco rebota entre las calles empedradas con una urgencia que no augura nada bueno. Llegas a la ciudad en el peor momento posible: cuando los rumores ya corren más rápido que la verdad, cuando la gente habla en voz baja y mira sobre el hombro. Alguien robó la cámara del tesoro del monarca durante la noche. Sin rastro de entrada forzada, sin testigos, sin explicación lógica. Solo la ausencia.
 
-Antes de que puedas orientarte, una mano se posa en tu hombro. Un guardia de expresión seria te mira de arriba abajo y asiente, como si confirmara algo que ya esperaba. "Tú. Llevas pinta de saber resolver problemas. La Capitana necesita hablar contigo." No es exactamente una invitación.`,
+Antes de que puedas orientarte entre el gentío nervioso, una mano se posa en tu hombro con la familiaridad de quien sabe exactamente quién es cada cara en esta ciudad. Un guardia de expresión seria te mira de arriba abajo y asiente despacio, como si estuviera confirmando algo que ya esperaba. "Tú. Llevas pinta de saber resolver problemas." No es una pregunta. "La Capitana necesita hablar contigo ahora mismo." Tampoco es exactamente una invitación.`,
     next: 'reunion_capitana',
   },
 
@@ -37,7 +37,9 @@ Antes de que puedas orientarte, una mano se posa en tu hombro. Un guardia de exp
 
       return `${intros[character.race]}
 
-"Anoche robaron la cámara del tesoro del monarca. Sin rastro de entrada forzada. Sin testigos. Solo el guardia de turno, que jura no haber visto nada." Aldara baja la voz. "Necesito que esto se resuelva antes de que el monarca vuelva de su viaje en tres días. Si esto se hace público antes... habrá caos."`;
+"Anoche vaciaron la cámara del tesoro del monarca." Aldara habla sin rodeos, con la voz de alguien que lleva despierta desde que encontraron el desastre. "Tres cerraduras intactas. Sin rastro de violencia. El guardia de turno jura que no vio nada." Hace una pausa. "O miente, o pasó algo que no tiene explicación razonable. De momento, prefiero la primera opción."
+
+Se acerca a la ventana y baja la voz. "El monarca regresa en tres días. Si esto se hace público antes de que lo resolvamos, habrá consecuencias que ninguno de los dos queremos ver. Necesito que investigues por fuera de la guardia oficial, alguien que pueda moverse sin que todo el mundo sepa para quién trabaja." Te mira directamente. "¿Puedes hacer eso?"`;
     },
     choices: [
       {
@@ -62,14 +64,16 @@ Antes de que puedas orientarte, una mano se posa en tu hombro. Un guardia de exp
     type: 'roll',
     scene: 'escena_camara.png',
     npcs: [],
-    text: () => `La cámara del tesoro está sellada con tres cerraduras distintas, ninguna forzada. El suelo de piedra no muestra marcas de arrastre. Todo parece intacto salvo por... la ausencia. Alguien entró y salió sin dejar huella visible.`,
+    text: () => `La cámara del tesoro huele a piedra húmeda y a ausencia. Tres cerraduras distintas, ninguna forzada, ninguna rayada. El guardia que te acompaña hasta la puerta no entra: se queda en el umbral con los brazos cruzados y la expresión de alguien que preferiría estar en cualquier otro sitio.
+
+El suelo de piedra no muestra marcas de arrastre. Las paredes no tienen daños. Todo parece estar en su sitio, lo cual es precisamente el problema: quien lo hizo entró y salió sin dejar huella visible. O eso quiere que creas.`,
     roll: {
       attribute: 'intelligence',
       label: 'Tirada de Inteligencia',
       modifier: () => 0,
       outcomes: [
         { min: 12, next: 'camara_exito' },
-        { min: 0,  next: 'camara_fallo' },
+        { min: 0, next: 'camara_fallo' },
       ],
     },
   },
@@ -79,7 +83,9 @@ Antes de que puedas orientarte, una mano se posa en tu hombro. Un guardia de exp
     type: 'narration',
     scene: 'escena_camara.png',
     npcs: [],
-    text: () => `Tus ojos recorren cada rincón hasta que lo ves: en el borde inferior de la tercera cerradura, casi invisible, hay rasguños minúsculos. Demasiado pequeños para una mano humana. Y en el polvo del suelo, cerca de la ventana, una serie de huellas diminutas... y una ganzúa rota del tamaño de tu dedo meñique. Alguien muy pequeño estuvo aquí.`,
+    text: () => `Te tomas tu tiempo. Empiezas por las cerraduras. La primera y la segunda no muestran nada inusual. Pero en el borde inferior de la tercera, casi invisible desde la altura normal, hay una serie de rasguños minúsculos, perfectamente regulares, como si alguien hubiera trabajado con una herramienta muy fina durante mucho tiempo. Demasiado fina para una mano adulta de tamaño normal.
+
+Te agachas. En el polvo del suelo, cerca de la ventana más pequeña, aparecen huellas. Diminutas. Y junto a ellas, casi enterrada entre los granos de polvo, una ganzúa rota del tamaño de tu dedo meñique. Alguien muy pequeño y muy habilidoso estuvo aquí. Y sabía exactamente lo que hacía.`,
     onEnter: ({ addClue }) => addClue('ganzua_gnomica'),
     next: 'convergencia_puerto',
   },
@@ -89,7 +95,9 @@ Antes de que puedas orientarte, una mano se posa en tu hombro. Un guardia de exp
     type: 'narration',
     scene: 'escena_camara.png',
     npcs: [],
-    text: () => `Inspeccionas la sala durante un buen rato pero no encuentras nada concluyente. Algo no encaja, lo notas en el ambiente, pero no logras identificar el qué. Quizás haya más respuestas fuera.`,
+    text: () => `Inspeccionas cada rincón de la sala con cuidado. Las cerraduras no revelan nada evidente. El suelo tampoco. Pasas los dedos por los marcos de las ventanas, examinas las paredes, buscas marcas que no deberían estar ahí. Nada.
+
+O no hay nada que encontrar, o estás buscando en los sitios equivocados. La sensación persiste de que algo no cuadra, que hay una pieza que falta en este cuadro demasiado limpio, pero no logras identificarla. Tal vez alguien más vio algo. Tal vez las respuestas estén fuera de esta sala.`,
     onEnter: ({ addClue }) => addClue('sensacion_ladron_pequeno'),
     next: 'convergencia_puerto',
   },
@@ -101,7 +109,9 @@ Antes de que puedas orientarte, una mano se posa en tu hombro. Un guardia de exp
     type: 'roll',
     scene: 'escena_cuartel.png',
     npcs: ['guardia_berton.png'],
-    text: () => `Berton es un hombre de mediana edad con cara de no haber dormido. Te recibe con los brazos cruzados y la mandíbula apretada.`,
+    text: () => `El cuartel huele a sudor y a aceite de antorcha. Berton lleva el uniforme mal abrochado, tiene ojeras de quien no ha dormido y la mandíbula apretada de quien lleva horas preparándose para una conversación que no quiere tener. Te recibe de pie, con los brazos cruzados, en el centro de la sala.
+
+"Ya hablé con la Capitana esta mañana", dice antes de que abras la boca. "No tengo nada nuevo que añadir."`,
     roll: {
       attribute: 'charisma',
       label: 'Tirada de Carisma',
@@ -113,17 +123,26 @@ Antes de que puedas orientarte, una mano se posa en tu hombro. Un guardia de exp
       outcomes: [
         { min: 14, next: 'guardia_exito' },
         { min: 10, next: 'guardia_fallo' },
-        { min: 0,  next: 'guardia_tension' },
+        { min: 0, next: 'guardia_tension' },
       ],
     },
   },
 
   guardia_exito: {
+    onEnter: ({ addClue, setFlag }) => {
+      addClue('gnomo_sombrero_nohomo');
+      setFlag('knows_nohomo');
+    },
+
     id: 'guardia_exito',
     type: 'narration',
     scene: 'escena_cuartel.png',
     npcs: ['guardia_berton.png'],
-    text: () => `Berton se desmorona. "Está bien. Está bien." Mira hacia la puerta y baja la voz. "Me pagaron para mirar hacia otro lado. Un gnomo con un sombrero ridículo, demasiado grande para su cabeza. Me dio una bolsa de monedas y me dijo que en una hora no habría pasado nada." Traga saliva. "No sé cómo se llama. Pero lo he visto antes cerca del puerto. Pregunta por alguien llamado... El NoHomo."`,
+    text: () => `Hay un momento en que algo se rompe en la expresión de Berton. No es un derrumbe repentino: es más bien como ver a alguien soltar un peso que llevaba demasiado tiempo cargando.
+
+"Está bien." Mira hacia la puerta del pasillo, luego a ti. Baja la voz hasta casi no ser audible. "Me pagaron. Un gnomo, no más alto que esto." Señala con la mano a la altura de su cadera. "Sombrero ridículo, demasiado grande para su cabeza. Me dio una bolsa con suficientes monedas como para no hacer preguntas y me dijo que en una hora no habría pasado nada." Traga saliva con dificultad. "No sé cómo se llama. Pero lo he visto antes por el puerto. Pregunta por alguien que llaman El NoHomo. Por ahí tirarás del hilo."
+
+Se gira hacia la ventana. La conversación ha terminado.`,
     onEnter: ({ addClue }) => addClue('gnomo_sombrero_nohomo'),
     next: 'convergencia_puerto',
   },
@@ -133,7 +152,11 @@ Antes de que puedas orientarte, una mano se posa en tu hombro. Un guardia de exp
     type: 'narration',
     scene: 'escena_cuartel.png',
     npcs: ['guardia_berton.png'],
-    text: () => `Berton no cede. "Ya dije todo lo que sé. No vi nada." Pero cuando se gira para irse, te fijas en sus pies: botas nuevas de cuero fino. El sueldo de un guardia no da para eso.`,
+    text: () => `Berton no cede un milímetro. "Ya dije todo lo que sé esta mañana. No vi nada, no oí nada." Su voz es plana, ensayada. La de alguien que lleva repitiendo la misma historia durante horas y ya la ha convertido en un reflejo.
+
+Cuando se gira para indicarte que la conversación ha terminado, tu mirada cae involuntariamente a sus pies. Botas nuevas. Cuero fino, bien cosidas, el tipo que no se compra con el sueldo de un guardia de segunda categoría. Las lleva con la incomodidad de quien no está acostumbrado a calzado bueno.
+
+No es una prueba. Pero es algo.`,
     onEnter: ({ addClue }) => addClue('guardia_sobornado'),
     next: 'convergencia_puerto',
   },
@@ -143,16 +166,18 @@ Antes de que puedas orientarte, una mano se posa en tu hombro. Un guardia de exp
     type: 'combat',
     scene: 'escena_cuartel.png',
     npcs: ['guardia_berton.png'],
-    text: () => `Berton se pone rígido. "¿Quién te has creído que eres para venir aquí a acusarme?" Grita hacia el pasillo. "¡Eh! ¡Aquí, necesito ayuda!"
+    text: () => `Berton se pone rígido. Hay un instante de cálculo en sus ojos, un momento en que evalúa sus opciones, y entonces abre la boca y grita hacia el pasillo:
 
-Dos guardias irrumpen en la sala. La situación se pone fea.`,
+"¡Eh! ¡Aquí! ¡Necesito ayuda!"
+
+Los pasos llegan rápido. Demasiado rápido para ser una coincidencia: estaban cerca, esperando. Dos guardias irrumpen en la sala con las manos ya en las empuñaduras. No tienen cara de venir a mediar.`,
     combat: {
       label: 'Combate — Dos guardias corruptos',
       attribute: 'strength',
       modifier: () => 0,
       outcomes: [
         { min: 10, next: 'guardia_combate_victoria' },
-        { min: 0,  next: 'camino_acusacion' },
+        { min: 0, next: 'camino_acusacion' },
       ],
     },
   },
@@ -162,7 +187,11 @@ Dos guardias irrumpen en la sala. La situación se pone fea.`,
     type: 'narration',
     scene: 'escena_cuartel.png',
     npcs: [],
-    text: () => `Consigues reducirlos y salir por piernas antes de que lleguen más. Berton te grita algo desde dentro, pero ya estás lejos. Sin pista clara, pero con la certeza de que ese guardia tiene algo que esconder.`,
+    text: () => `El silencio que queda después es inmediato e incómodo. Los dos guardias en el suelo, Berton gritando algo desde el fondo del pasillo mientras tú ya estás en la calle, moviéndote entre la gente con la cabeza gacha.
+
+Las manos te tiemblan ligeramente. No de miedo, sino de adrenalina que no ha encontrado todavía dónde irse. No conseguiste lo que necesitabas de Berton, pero lo que sí conseguiste tiene su propio valor: ese hombre tiene algo que esconder, y los dos guardias que llamó en su ayuda no parecían interesados en hacer preguntas. La corrupción llega más arriba de lo que la Capitana sospechaba.
+
+El puerto. Siempre el puerto.`,
     onEnter: ({ addClue }) => addClue('corrupcion_interna'),
     next: 'convergencia_puerto',
   },
@@ -190,11 +219,15 @@ Dos guardias irrumpen en la sala. La situación se pone fea.`,
       return `El mercado hierve de rumores esta mañana. La gente habla en corrillos, los comerciantes bajan la voz cuando pasan los guardias.\n\n${racePart[character.race]}${roguePart}`;
     },
     onEnter: ({ addClue, setFlag, character }) => {
-      if (character.race === 'dragonborn') addClue('nohomo_puerto');
+      if (character.race === 'dragonborn') {
+        addClue('nohomo_puerto');
+        setFlag('knows_nohomo');
+      }
       if (character.race === 'elf') addClue('ladrones_pequenos');
       if (character.class === 'rogue') {
         addClue('gnomabandistas_simbolo');
         setFlag('knows_dabiz_name');
+        setFlag('knows_nohomo');
         setFlag('knows_symbol');
       }
     },
@@ -208,7 +241,27 @@ Dos guardias irrumpen en la sala. La situación se pone fea.`,
     type: 'choice',
     scene: 'escena_puerto.png',
     npcs: [],
-    text: () => `Todos los caminos apuntan al puerto. El olor a sal y a pescado podrido te recibe mientras el sol empieza a bajar. Entre los muelles y los almacenes, hay demasiados rincones donde esconderse.`,
+    text: (character, flags) => {
+      let llegada = '';
+
+      if (flags?.gnomo_sombrero_nohomo || flags?.knows_nohomo) {
+        llegada = 'Tienes un nombre: El NoHomo. Y ese nombre, según lo que averiguaste, se mueve por el puerto como pez en el agua. No es mucho, pero es un hilo del que tirar. ';
+      } else if (flags?.corrupcion_interna || flags?.guardia_sobornado) {
+        llegada = 'Berton no habló, pero sus botas nuevas hablan por él. Alguien está pagando para que ciertas personas miren hacia otro lado, y ese dinero viene de algún sitio. Todo apunta al puerto. ';
+      } else if (flags?.gnomabandistas_simbolo) {
+        llegada = 'Llevas el nombre resonando en la cabeza: los Gnomabandistas. Y la marca que te dijeron que buscaras debería estar en algún lugar del puerto, según tu contacto. ';
+      } else if (flags?.ladrones_pequenos || flags?.nohomo_puerto) {
+        llegada = 'Los rumores del mercado eran fragmentos sueltos, pero todos señalaban hacia el mismo sitio. Gente pequeña moviéndose de noche, un intermediario nuevo con demasiada influencia. Alguien está operando desde los muelles. ';
+      } else if (flags?.ganzua_gnomica) {
+        llegada = 'Las huellas que encontraste en la cámara del tesoro eran diminutas, y esa ganzúa rota no la fabrica ningún artesano de Valdris que conozcas. Alguien de fuera, alguien muy pequeño, que sabe lo que hace. Los forasteros con ese perfil suelen pasar por el puerto. ';
+      } else if (flags?.sensacion_ladron_pequeno) {
+        llegada = 'No encontraste pruebas concretas en la cámara, pero la sensación sigue ahí: quien lo hizo era pequeño, ágil, y conocía bien el lugar. No es un ladrón de la ciudad. El puerto es el siguiente paso lógico. ';
+      } else {
+        llegada = 'Los caminos se cruzan aquí. Todo lo que has visto y oído esta mañana apunta en la misma dirección. ';
+      }
+
+      return `${llegada}El olor a sal y a madera mojada te recibe cuando bajas hacia los muelles. El puerto de Valdris a esta hora es un laberinto de actividad calculada: pescadores que recogen redes con demasiada prisa, estibadores que mueven bultos sin mirar a nadie, tabernas donde las conversaciones se cortan en cuanto se abre la puerta. Aquí es donde se mueve el dinero que no quiere dejar rastro, donde los forasteros pasan sin que nadie anote sus nombres. Si hay algo que encontrar, está entre estos muelles.`;
+    },
     choices: [
       {
         text: '"Me muevo en silencio y observo."',
@@ -216,6 +269,9 @@ Dos guardias irrumpen en la sala. La situación se pone fea.`,
       },
       {
         text: '"Pregunto abiertamente por El NoHomo."',
+        condition: (character, flags) =>
+          flags?.knows_nohomo || flags?.knows_dabiz_name ||
+          character.class === 'rogue',
         next: 'puerto_preguntar',
       },
       {
@@ -223,463 +279,560 @@ Dos guardias irrumpen en la sala. La situación se pone fea.`,
         condition: (character) => character.class === 'rogue',
         next: 'puerto_picaro',
       },
+      {
+        text: '"Pregunto por actividad sospechosa en el puerto."',
+        condition: (character, flags) =>
+          !flags?.knows_nohomo && !flags?.knows_dabiz_name &&
+          character.class !== 'rogue',
+        next: 'puerto_preguntar',
+      },
     ],
   },
 
   // ── ACTO 3 — PUERTO ────────────────────────────────────
 
-puerto_sigilo: {
-  id: 'puerto_sigilo',
-  type: 'roll',
-  scene: 'escena_puerto.png',
-  npcs: [],
-  text: () => `Te fundes con las sombras entre los almacenes. Hay movimiento inusual cerca del tercer muelle.`,
-  roll: {
-    attribute: 'dexterity',
-    label: 'Tirada de Destreza',
-    modifier: () => 0,
-    outcomes: [
-      { min: 11, next: 'puerto_sigilo_exito' },
-      { min: 0,  next: 'puerto_combate' },
+  puerto_sigilo: {
+    id: 'puerto_sigilo',
+    type: 'roll',
+    scene: 'escena_puerto.png',
+    npcs: [],
+    text: () => `Te separas del tráfico de la calle principal y te metes entre los almacenes. La luz es escasa, filtrada entre construcciones que parecen haber crecido las unas sobre las otras sin ningún plan. Hay movimiento inusual cerca del tercer muelle: bultos que se mueven sin que nadie los anuncie, figuras que circulan demasiado despacio para ser trabajadores con prisa.
+
+Te quedas quieto. Observas.`,
+    roll: {
+      attribute: 'dexterity',
+      label: 'Tirada de Destreza',
+      modifier: () => 0,
+      outcomes: [
+        { min: 11, next: 'puerto_sigilo_exito' },
+        { min: 0, next: 'puerto_combate' },
+      ],
+    },
+  },
+
+  puerto_sigilo_exito: {
+    id: 'puerto_sigilo_exito',
+    type: 'narration',
+    scene: 'escena_simbolo_piedra.png',
+    npcs: [],
+    text: () => `Desde tu posición ves a dos figuras encapuchadas de baja estatura descargando algo desde una carreta sin marcar hacia una rejilla de alcantarillado. Trabajan en silencio y con una eficiencia que indica práctica. Cuando terminan, uno de ellos se detiene un momento junto a la pared del almacén más cercano y hace un gesto breve con la mano antes de desaparecer por la rejilla.
+
+Te acercas cuando el camino está despejado. En la pared, a la altura de la rodilla, casi invisible entre la humedad y la mugre, hay una marca arañada en la piedra: una G en espiral, tosca pero deliberada. No es un garabato. Es una señal.`,
+    onEnter: ({ addClue, setFlag }) => {
+      addClue('simbolo_espiral');
+      setFlag('knows_symbol');
+    },
+    next: 'alcantarillas_entrada',
+  },
+
+  puerto_combate: {
+    id: 'puerto_combate',
+    type: 'combat',
+    scene: 'escena_puerto.png',
+    npcs: [],
+    text: () => `No llegas a procesar del todo la situación antes de que empeore. Un hombre que prácticamente bloquea la luz entre dos almacenes se gira hacia ti con la calma de quien no tiene ninguna prisa porque sabe exactamente cómo termina esto.
+
+"¿Buscas algo, forastero?" La pregunta no espera respuesta. Detrás de él, dos más se materializan de entre las sombras. No llevan uniforme de guardia. Llevan la expresión de personas a quienes alguien paga para que los problemas desaparezcan.`,
+    combat: {
+      label: 'Combate — Tres matones de los Gnomabandistas',
+      attribute: 'strength',
+      modifier: () => 0,
+      outcomes: [
+        { min: 11, next: 'puerto_combate_victoria' },
+        { min: 0, next: 'puerto_capturado' },
+      ],
+    },
+  },
+
+  puerto_combate_victoria: {
+    id: 'puerto_combate_victoria',
+    type: 'narration',
+    scene: 'escena_simbolo_papel.png',
+    npcs: [],
+    text: () => `El último de los tres cae y el silencio vuelve al callejón. Te duele algo que no sabías que podía dolerte, y la adrenalina empieza a transformarse en ese cansancio específico que solo viene de haber peleado de verdad.
+
+Pero antes de alejarte, uno de ellos ha dejado caer algo al suelo: un trozo de papel doblado, con manchas de aceite en los bordes. Lo despliegas. Es un mapa rudimentario del puerto, trazado a mano, con una sola marca: una G en espiral señalando un punto en las alcantarillas. Quien te mandó a estos tres sabía que ibas a preguntar. Eso significa que vas por el buen camino.`,
+    onEnter: ({ addClue, setFlag, setIsInjured }) => {
+      addClue('simbolo_espiral');
+      setFlag('knows_symbol');
+      setIsInjured(true);
+    },
+    next: 'alcantarillas_entrada',
+  },
+
+  puerto_capturado: {
+    id: 'puerto_capturado',
+    type: 'narration',
+    scene: 'escena_puerto.png',
+    npcs: [],
+    text: () => `El golpe llega de donde no lo veías venir. Un instante de oscuridad repentina, y luego nada.
+
+Cuando recuperas la consciencia, estás en el suelo de un almacén que huele a sal rancia y a madera podrida. Las manos atadas detrás de la espalda, un dolor en la cabeza que pulsa con cada latido. El lugar está vacío. Sea lo que sea lo que querían de ti, o ya lo tienen, o decidieron que no merecía el esfuerzo.
+
+Tardas demasiado tiempo en soltarte. Cuando por fin lo logras y consigues salir al exterior, el sol ya está en otra posición. Has perdido horas. Y sin embargo, al apoyarte en la pared para recuperar el aliento, ves exactamente lo que necesitabas: una G en espiral arañada en la piedra, señalando hacia abajo. Al menos eso no te lo han quitado.`,
+    onEnter: ({ addClue, setFlag }) => {
+      addClue('simbolo_espiral');
+      setFlag('knows_symbol');
+    },
+    next: 'alcantarillas_entrada',
+  },
+
+  puerto_preguntar: {
+    id: 'puerto_preguntar',
+    type: 'roll',
+    scene: 'escena_puerto.png',
+    npcs: [],
+    text: () => `Hay una taberna en la entrada del tercer muelle que tiene toda la pinta de ser el tipo de sitio donde la gente va cuando no quiere que la vean en ningún otro lado. Empujas la puerta. El ruido de conversaciones se corta a medias y varios pares de ojos se giran hacia ti antes de volver a lo suyo con estudiada indiferencia.
+
+Te plantas ante la barra y preguntas lo suficientemente alto como para que quien necesite oírlo pueda hacerlo.`,
+    roll: {
+      attribute: 'charisma',
+      label: 'Tirada de Carisma',
+      modifier: () => 0,
+      outcomes: [
+        { min: 11, next: 'puerto_preguntar_exito' },
+        { min: 0, next: 'puerto_preguntar_fallo' },
+      ],
+    },
+  },
+
+  puerto_preguntar_exito: {
+    id: 'puerto_preguntar_exito',
+    type: 'narration',
+    scene: 'escena_simbolo_piedra.png',
+    npcs: [],
+    text: () => `El tabernero lleva un buen rato limpiando el mismo vaso. No te mira directamente. Pero tampoco se aleja.
+
+Cuando finalmente habla, lo hace sin subir la vista. "No sé de qué me hablas." Una pausa larga. La tela sigue frotando el cristal. "Pero si estuvieras buscando algo en este puerto, yo miraría esa pared del fondo antes de irme."
+
+Hay una marca en la piedra, junto a la puerta trasera. Una G en espiral. "Sigue las que encuentres," dice el tabernero, ya girándose hacia el otro extremo de la barra. "Y no me nombres."`,
+    onEnter: ({ addClue, setFlag }) => {
+      addClue('simbolo_espiral');
+      setFlag('knows_symbol');
+    },
+    next: 'alcantarillas_entrada',
+  },
+
+  puerto_preguntar_fallo: {
+    id: 'puerto_preguntar_fallo',
+    type: 'narration',
+    scene: 'escena_simbolo_papel.png',
+    npcs: [],
+    text: () => `El bar no te da nada. Las conversaciones no se interrumpen del todo pero bajan de tono, y las respuestas que recibes van desde el silencio hasta un encogimiento de hombros que claramente significa que no piensan decirte nada.
+
+Salir con las manos vacías siempre es una posibilidad en este trabajo.
+
+Pero al cruzar el umbral de vuelta a la calle, alguien te roza el brazo sin detenerse. Cuando bajas la vista, hay un papel arrugado en tu mano. Solo tiene dibujado un garabato: una G en espiral. Sin firma, sin explicación. Alguien dentro quería ayudarte sin que nadie lo viera hacerlo.`,
+    onEnter: ({ addClue, setFlag }) => {
+      addClue('simbolo_espiral');
+      setFlag('knows_symbol');
+    },
+    next: 'alcantarillas_entrada',
+  },
+
+  puerto_picaro: {
+    id: 'puerto_picaro',
+    type: 'narration',
+    scene: 'escena_simbolo_piedra.png',
+    npcs: [],
+    text: () => `Conoces este tipo de lugares mejor de lo que te gustaría admitir. El puerto de Valdris no es muy diferente de otros puertos: los mismos patrones de movimiento, las mismas señales si sabes qué buscar, las mismas caras de quien vigila sin parecer que vigila.
+
+En veinte minutos tienes el mapa mental hecho. Los puntos de observación, los callejones que llevan a sitios que no quieren que veas, y la misma marca repetida en tres lugares distintos: una G en espiral arañada en la piedra, discreta como un secreto, evidente como un camino para quien sabe mirarlo. Las alcantarillas. Por supuesto.`,
+    onEnter: ({ addClue, setFlag }) => {
+      addClue('simbolo_espiral');
+      addClue('mapa_ruta_subterranea');
+      setFlag('knows_symbol');
+    },
+    next: 'alcantarillas_entrada',
+  },
+
+  // ── ACTO 4 — ALCANTARILLAS ─────────────────────────────
+
+  alcantarillas_entrada: {
+    id: 'alcantarillas_entrada',
+    type: 'choice',
+    scene: 'escena_alcantarillas.png',
+    npcs: [],
+    text: () => `La rejilla no está cerrada con llave, lo cual en sí mismo es información. Las alcantarillas de Valdris son viejas y el olor lo demuestra, pero el camino que sigues no parece abandonado: la mugre del suelo tiene huellas recientes, y la marca en espiral aparece en las paredes cada cierto trecho, arañada a distintas alturas como si la hubieran dejado personas de distintos tamaños.
+
+El sonido de voces llega antes de que veas ninguna luz. Alguien discute en algún punto adelante, con la confianza de quien se siente seguro en su terreno.`,
+    choices: [
+      {
+        text: '"Avanzo en silencio."',
+        next: 'escondite_sigilo',
+      },
+      {
+        text: '"Vuelvo a avisar a la Capitana primero."',
+        next: 'escondite_capitan',
+      },
+      {
+        text: '"Entro directamente."',
+        next: 'escondite_directo',
+      },
     ],
   },
-},
 
-puerto_sigilo_exito: {
-  id: 'puerto_sigilo_exito',
-  type: 'narration',
-  scene: 'escena_simbolo_piedra.png',
-  npcs: [],
-  text: () => `Desde las sombras observas a dos figuras encapuchadas y de baja estatura cargando bultos hacia una rejilla de alcantarilla. Cuando se marchan, te acercas a la pared donde uno de ellos estuvo apoyado. Allí, arañada en la piedra con algo afilado, hay una marca: una especie de G en espiral. Tosca, pero deliberada. La entrada.`,
-  onEnter: ({ addClue, setFlag }) => {
-    addClue('simbolo_espiral');
-    setFlag('knows_symbol');
+  escondite_sigilo: {
+    id: 'escondite_sigilo',
+    type: 'roll',
+    scene: 'escena_alcantarillas.png',
+    npcs: [],
+    text: (character) => `Te mueves pegado a la pared, pisando donde no hay agua, evitando las zonas donde la piedra suena diferente bajo el peso. Las voces se hacen más claras conforme avanzas.${character.isInjured ? '\n\nEl golpe que recibiste antes todavía te pasa factura. Cada movimiento brusco recuerda que no estás al cien por cien.' : ''}`,
+    roll: {
+      attribute: 'dexterity',
+      label: 'Tirada de Destreza',
+      modifier: (character) => character.isInjured ? -2 : 0,
+      outcomes: [
+        { min: 11, next: 'escondite_sigilo_exito' },
+        { min: 0, next: 'escondite_combate_gnomos' },
+      ],
+    },
   },
-  next: 'alcantarillas_entrada',
-},
 
-puerto_combate: {
-  id: 'puerto_combate',
-  type: 'combat',
-  scene: 'escena_puerto.png',
-  npcs: [],
-  text: () => `Un matón enorme te agarra por el hombro. "¿Buscas algo, forastero?" Detrás de él, otros dos. No son guardias. Son algo peor.`,
-  combat: {
-    label: 'Combate — Tres matones de los Gnomabandistas',
-    attribute: 'strength',
-    modifier: () => 0,
-    outcomes: [
-      { min: 11, next: 'puerto_combate_victoria' },
-      { min: 0,  next: 'puerto_capturado' },
+  escondite_sigilo_exito: {
+    id: 'escondite_sigilo_exito',
+    type: 'choice',
+    scene: 'escena_escondite.png',
+    npcs: ['molibdeno.png', 'tecnecio.png', 'genomo.png'],
+    text: (character) => {
+      const base = `La sala a la que llegas es amplia para estar debajo de una ciudad, improvisada en la manera en que solo lo son los espacios que alguien decidió usar porque nadie más los reclamaba. Cajas apiladas hasta casi el techo, un mapa de Valdris extendido sobre una mesa con marcas que no reconoces, velas que llevan horas encendidas.
+
+Y en el centro, tres figuras que discuten con el volumen de quien no espera visitas: un gnomo corpulento con suficientes engranajes y artilugios colgando del cinturón como para abrir una tienda, un Tiefling de cuernos cortos y expresión permanentemente ofendida, y un gnomo en sotana remendada que murmura algo en voz baja entre frase y frase de los otros dos, como si llevara una conversación paralela con alguien que los demás no pueden ver. Del resto del grupo, ningún rastro.`;
+      return base;
+    },
+    choices: [
+      {
+        text: '"Escucho lo que dicen antes de actuar."',
+        next: 'escondite_escuchar',
+      },
+      {
+        text: '"Me lanzo sobre ellos por sorpresa."',
+        next: 'escondite_combate_gnomos',
+      },
+      {
+        text: '"Aprovecho para registrar la sala antes de que me vean."',
+        condition: (character) =>
+          (character.race === 'halfling' || character.class === 'rogue') &&
+          character.attributes.find((a) => a.id === 'dexterity')?.value >= 12,
+        next: 'libro_cuentas',
+      },
     ],
   },
-},
 
-puerto_combate_victoria: {
-  id: 'puerto_combate_victoria',
-  type: 'narration',
-  scene: 'escena_simbolo_papel.png',
-  npcs: [],
-  text: () => `Sales victorioso pero malherido. Los matones huyen. Antes de que lleguen refuerzos, uno de ellos deja caer un papel al suelo: un mapa tosco con una G en espiral marcando un punto en las alcantarillas.`,
-  onEnter: ({ addClue, setFlag, setIsInjured }) => {
-    addClue('simbolo_espiral');
-    setFlag('knows_symbol');
-    setIsInjured(true);
+  escondite_escuchar: {
+    id: 'escondite_escuchar',
+    type: 'narration',
+    scene: 'escena_escondite.png',
+    npcs: ['molibdeno.png', 'tecnecio.png', 'genomo.png'],
+    text: () => `Te quedas quieto y escuchas.
+
+El gnomo de los engranajes gesticula mientras habla, amenazando con hacer caer media docena de artilugios al suelo con cada movimiento. "¡Digo que deberíamos haber cogido también los candelabros! Eran de plata maciza, yo lo vi—"
+
+"Molibdeno." La voz del Tiefling tiene la temperatura del hierro en invierno. "Cierra. La. Boca."
+
+"El Señor DaBiZ volverá pronto," dice el de la sotana, sin levantar la vista de lo que sea que está leyendo. "Tened fe, Tecnecio. Y tú, Molibdeno, deja de inventariar lo que no cogimos."
+
+Molibdeno. Tecnecio. Y el de la sotana, que sería Genomo a juzgar por las referencias cruzadas que acabas de hacer mentalmente. Tres de ellos, y un cuarto en camino. DaBiZ. Están esperando a alguien.`,
+    onEnter: ({ addClue, setFlag }) => {
+      addClue('nombres_banda');
+      setFlag('knows_dabiz_name');
+    },
+    next: 'encuentro_dabiz',
   },
-  next: 'alcantarillas_entrada',
-},
 
-puerto_capturado: {
-  id: 'puerto_capturado',
-  type: 'narration',
-  scene: 'escena_puerto.png',
-  npcs: [],
-  text: () => `Un golpe en la nuca. Oscuridad.\n\nDespiertas atado en un almacén oscuro. Tus captores no están. Han pasado horas. Consigues soltarte, pero has perdido tiempo y una pista. Al salir, ves en la pared el símbolo de la G en espiral. Al menos tienes eso.`,
-  onEnter: ({ addClue, setFlag }) => {
-    addClue('simbolo_espiral');
-    setFlag('knows_symbol');
+  escondite_combate_gnomos: {
+    id: 'escondite_combate_gnomos',
+    type: 'combat',
+    scene: 'escena_escondite.png',
+    npcs: ['molibdeno.png', 'tecnecio.png', 'genomo.png'],
+    text: () => `No hay forma limpia de hacerlo, así que no la buscas. Entras, o te descubren: el resultado es el mismo, caos inmediato.
+
+Molibdeno lanza lo primero que tiene a mano, que resulta ser un artilugio que explota hacia el lado equivocado y llena la sala de humo y olor a sulfuro quemado. Tecnecio levanta la mano y el aire crepita antes de que un rayo te roza la oreja izquierda y deja una marca negra en la pared. Genomo cierra los ojos, junta las manos, y empieza a murmurar algo que podría ser una bendición pero que, a juzgar por los resultados, no está funcionando especialmente bien.`,
+    combat: {
+      label: 'Combate — Molibdeno, Tecnecio y Genomo',
+      attribute: 'strength',
+      modifier: (character) => character.isInjured ? -2 : 0,
+      outcomes: [
+        { min: 11, next: 'encuentro_dabiz' },
+        { min: 0, next: 'camino_acusacion' },
+      ],
+    },
   },
-  next: 'alcantarillas_entrada',
-},
 
-puerto_preguntar: {
-  id: 'puerto_preguntar',
-  type: 'roll',
-  scene: 'escena_puerto.png',
-  npcs: [],
-  text: () => `Te plantas en el primer bar del puerto y preguntas por El NoHomo sin rodeos.`,
-  roll: {
-    attribute: 'charisma',
-    label: 'Tirada de Carisma',
-    modifier: () => 0,
-    outcomes: [
-      { min: 11, next: 'puerto_preguntar_exito' },
-      { min: 0,  next: 'puerto_preguntar_fallo' },
+  escondite_capitan: {
+    id: 'escondite_capitan',
+    type: 'combat',
+    scene: 'escena_escondite.png',
+    npcs: ['molibdeno.png', 'tecnecio.png', 'genomo.png'],
+    text: () => `La Capitana Aldara no pierde el tiempo en dramaturgia. Llega con seis guardias que claramente eligió con cuidado, los hace colocarse en posición sin decir una sola palabra innecesaria, y luego te mira a ti. "Bien hecho al avisarme. Ahora entramos juntos y hacemos esto de forma ordenada."
+
+La idea de hacerlo de forma ordenada dura exactamente hasta que Molibdeno ve las antorchas y entra en pánico, Tecnecio decide que un hechizo es siempre mejor respuesta que la rendición, y Genomo empieza a rezar en voz alta con una convicción que en otras circunstancias sería casi admirable. La sala tarda varios minutos confusos en calmarse, pero el resultado es el esperado.`,
+    combat: {
+      label: 'Combate — Con refuerzos (+3)',
+      attribute: 'strength',
+      modifier: () => 3,
+      outcomes: [
+        { min: 8, next: 'encuentro_dabiz_capitan' },
+        { min: 0, next: 'camino_acusacion' },
+      ],
+    },
+  },
+
+  escondite_directo: {
+    id: 'escondite_directo',
+    type: 'combat',
+    scene: 'escena_escondite.png',
+    npcs: ['molibdeno.png', 'tecnecio.png', 'genomo.png'],
+    text: () => `A veces la solución más directa es simplemente la más honesta. Encuentras lo que sirve de puerta, tomas impulso, y entras.
+
+Los tres que hay dentro tardan exactamente un segundo en procesar lo que está pasando. Tú usas ese segundo.`,
+    combat: {
+      label: 'Combate — Molibdeno, Tecnecio y Genomo',
+      attribute: 'strength',
+      modifier: () => 0,
+      outcomes: [
+        { min: 11, next: 'encuentro_dabiz' },
+        { min: 0, next: 'camino_acusacion' },
+      ],
+    },
+  },
+
+  libro_cuentas: {
+    id: 'libro_cuentas',
+    type: 'narration',
+    scene: 'escena_escondite.png',
+    npcs: [],
+    text: () => `Mientras los tres están ocupados discutiendo entre ellos, tus manos trabajan solas. Recorres las cajas metódicamente, levantando esquinas, revisando fondos, buscando el tipo de escondite que solo usa alguien que no confía del todo en sus propios socios.
+
+Bajo un tablón suelto en el suelo, envuelta en tela encerada para protegerla de la humedad, hay una libreta encuadernada en cuero verde. La abres. Nombres, fechas, cantidades. Columnas ordenadas con una caligrafía pequeña y precisa. Reconoces algunos nombres: funcionarios del palacio, un juez, tres mercaderes con puestos permanentes en el mercado central. Y al final de la última página, subrayado dos veces, el nombre de alguien con acceso directo al monarca.
+
+Esto no es el registro de un golpe. Es el archivo operativo de alguien que lleva años construyendo algo mucho más grande.`,
+    onEnter: ({ addClue, setFlag }) => {
+      addClue('libro_cuentas_dabiz');
+      setFlag('has_ledger');
+    },
+    next: 'encuentro_dabiz',
+  },
+
+  // ── ACTO 5 — DABIZ ─────────────────────────────────────
+
+  encuentro_dabiz: {
+    id: 'encuentro_dabiz',
+    type: 'choice',
+    scene: 'escena_escondite.png',
+    npcs: ['dabiz.png', 'yeromi.png'],
+    text: (character, flags) => {
+      const knowsName = flags?.knows_dabiz_name || flags?.knows_nohomo;
+      const hasLedger = flags?.has_ledger;
+
+      const intro = `Lo oyes antes de verlo. Una voz tranquila, casi aburrida. "Sabía que llegarías aquí tarde o temprano."\n\nDe entre las sombras aparece un gnomo que no se parece a ninguno que hayas visto antes. Ancho de hombros, de complexión imposiblemente robusta para su tamaño, con el cuello de un toro y los puños de alguien que ha ganado muchas peleas y ha disfrutado de todas ellas. Recorriéndole el pómulo izquierdo, un tatuaje tribal de tinta oscura que le da un aire entre feroz y aristocrático. A su lado, una gnoma con ojos de depredador y dos dagas al cinto que ya lleva en la mano.`;
+
+      const greeting = knowsName
+        ? `\n\n"DaBiZ El-NoHomo en persona. Más bajito de lo que esperaba."`
+        : `\n\nEl gnomo sonríe al ver tu expresión. "¿Buscabas al NoHomo? Pues ya me has encontrado."`;
+
+      const ledgerLine = hasLedger
+        ? `\n\n"Veo que has encontrado mi contabilidad. Qué inconveniente." La sonrisa no desaparece. "Eso cambia las cosas."`
+        : '';
+
+      return `${intro}${greeting}${ledgerLine}\n\n"¿Sabes cuánta gente ha intentado detenerme?" La sonrisa no desaparece. "Interesante que hayas llegado tan lejos."`;
+    },
+    choices: [
+      {
+        text: '"Entrégate. La Capitana ya tiene pruebas de todo."',
+        condition: (character, flags) => flags?.has_ledger,
+        next: 'final_secreto',
+      },
+      {
+        text: '"Esto se acaba aquí."',
+        next: 'combate_final',
+      },
     ],
   },
-},
 
-puerto_preguntar_exito: {
-  id: 'puerto_preguntar_exito',
-  type: 'narration',
-  scene: 'escena_simbolo_piedra.png',
-  npcs: [],
-  text: () => `El tabernero te mira largo rato. Luego, sin decir nada, señala con la cabeza hacia la pared del fondo. Hay una marca arañada en la piedra: una G en espiral, discreta pero inconfundible una vez que la ves. "Baja por ahí y sigue las marcas. Pero no digas que fui yo."`,
-  onEnter: ({ addClue, setFlag }) => {
-    addClue('simbolo_espiral');
-    setFlag('knows_symbol');
-  },
-  next: 'alcantarillas_entrada',
-},
+  encuentro_dabiz_capitan: {
+    id: 'encuentro_dabiz_capitan',
+    type: 'combat',
+    scene: 'escena_escondite.png',
+    npcs: ['dabiz.png', 'yeromi.png'],
+    text: () => `La Capitana Aldara entra a tu espalda y el cálculo en los ojos de DaBiZ es inmediato e inequívoco. Mira los refuerzos, evalúa las salidas, considera a su compañera de un vistazo. Ella niega casi imperceptiblemente con la cabeza.
 
-puerto_preguntar_fallo: {
-  id: 'puerto_preguntar_fallo',
-  type: 'narration',
-  scene: 'escena_simbolo_papel.png',
-  npcs: [],
-  text: () => `Nadie habla. El bar se queda en silencio incómodo. Al salir, alguien te lanza un papel arrugado. Solo tiene dibujado un garabato: una especie de G en espiral. No sabes de dónde viene, pero señala hacia las alcantarillas.`,
-  onEnter: ({ addClue, setFlag }) => {
-    addClue('simbolo_espiral');
-    setFlag('knows_symbol');
-  },
-  next: 'alcantarillas_entrada',
-},
-
-puerto_picaro: {
-  id: 'puerto_picaro',
-  type: 'narration',
-  scene: 'escena_simbolo_piedra.png',
-  npcs: [],
-  text: () => `Sabes leer una ciudad como otros leen un libro. En veinte minutos ya has identificado los puntos de vigilancia, los patrones de movimiento, y la misma marca repetida en tres lugares distintos: una G en espiral arañada en las paredes, conduciendo hacia las alcantarillas como un rastro de migas de pan.`,
-  onEnter: ({ addClue, setFlag }) => {
-    addClue('simbolo_espiral');
-    addClue('mapa_ruta_subterranea');
-    setFlag('knows_symbol');
-  },
-  next: 'alcantarillas_entrada',
-},
-
-// ── ACTO 4 — ALCANTARILLAS ─────────────────────────────
-
-alcantarillas_entrada: {
-  id: 'alcantarillas_entrada',
-  type: 'choice',
-  scene: 'escena_alcantarillas.png',
-  npcs: [],
-  text: () => `La rejilla cede con un chirrido. El olor es brutal. Bajo tierra, la marca en espiral se repite en las paredes cada cierto trecho, guiándote como un rastro hacia algo que cada vez suena más a voces y a actividad.`,
-  choices: [
-    {
-      text: '"Avanzo en silencio."',
-      next: 'escondite_sigilo',
+"Interesante." DaBiZ se ajusta el borde del sombrero con dos dedos, un gesto que parece más de cortesía que de nerviosismo. "Debo reconocer que la jugada de avisar a la guardia no la esperaba." Una pausa. "Aun así, no pienso rendirme sin que esto cueste algo."`,
+    combat: {
+      label: 'Combate Final — DaBiZ y su banda (con refuerzos)',
+      attribute: 'strength',
+      modifier: (character, flags, clues, isInjured) => {
+        let mod = 2;
+        if (isInjured) mod -= 2;
+        return mod;
+      },
+      outcomes: [
+        { min: 14, next: 'final_bueno' },
+        { min: 10, next: 'final_neutral' },
+        { min: 0, next: 'final_malo_1' },
+      ],
     },
-    {
-      text: '"Vuelvo a avisar a la Capitana primero."',
-      next: 'escondite_capitan',
+  },
+
+  combate_final: {
+    id: 'combate_final',
+    type: 'combat',
+    scene: 'escena_escondite.png',
+    npcs: ['dabiz.png', 'yeromi.png'],
+    text: () => `Su compañera se mueve primero, y lo hace con una velocidad que no cuadra con el tamaño. Las dagas aparecen en sus manos como si siempre hubieran estado ahí, y el espacio entre vosotros desaparece antes de que hayas terminado de procesar el movimiento.
+
+Al fondo de la sala, DaBiZ ha empezado a murmurar. Las palabras son en un idioma que no reconoces, pero el efecto es visible: el aire a su alrededor adquiere una densidad distinta, y el tatuaje tribal de su pómulo izquierdo emite un resplandor tenue con cada sílaba. No hay tiempo de esperar a ver en qué termina eso.`,
+    combat: {
+      label: 'Combate Final — DaBiZ El-NoHomo',
+      attribute: 'strength',
+      modifier: (character, flags, clues, isInjured) => {
+        let mod = 0;
+        if (clues?.length >= 4) mod += 2;
+        else if (clues?.length >= 2) mod += 1;
+        if (clues?.includes('libro_cuentas_dabiz')) mod += 1;
+        if (isInjured) mod -= 2;
+        return mod;
+      },
+      outcomes: [
+        { min: 14, next: 'final_bueno' },
+        { min: 10, next: 'final_neutral' },
+        { min: 0, next: 'final_malo_1' },
+      ],
     },
-    {
-      text: '"Entro directamente."',
-      next: 'escondite_directo',
+  },
+
+  // ── CAMINO DE ACUSACIÓN ─────────────────────────────────
+
+  camino_acusacion: {
+    id: 'camino_acusacion',
+    type: 'narration',
+    scene: 'escena_calles.png',
+    npcs: [],
+    text: () => `No llegas a recuperarte del todo antes de que empeore.
+
+La guardia de la ciudad llega en número, y no lo hace sola: un guardia corrupto está entre ellos, con la postura de alguien que ha tomado una decisión y ha decidido no volver atrás. Levanta el brazo y te señala con un dedo que no tiembla lo suficiente para ser inocente.
+
+"Ese. Lo vi salir de la cámara del tesoro anoche." Su voz es firme, ensayada, perfecta. La de alguien que lleva horas preparando este momento. "Es el ladrón."
+
+El problema con ser forastero en una ciudad que no te conoce es que nadie puede decir con certeza que eso no es verdad.`,
+    next: 'persecucion',
+  },
+
+  persecucion: {
+    id: 'persecucion',
+    type: 'combat',
+    scene: 'escena_calles.png',
+    npcs: [],
+    text: () => `En cuestión de minutos tu nombre está en boca de todos los que tienen razones para querer que alguien sea culpable. Los guardias corruptos han hecho bien su trabajo: eres nuevo en la ciudad, no tienes nadie que responda por ti, y la historia que han construido es lo suficientemente sólida como para sostenerse el tiempo necesario.
+
+Las calles se estrechan a tu alrededor. Cada esquina puede tener alguien esperando. Tienes que salir de aquí ahora.`,
+    combat: {
+      label: 'Huida — Guardias de Valdris',
+      attribute: 'strength',
+      modifier: () => 0,
+      outcomes: [
+        { min: 14, next: 'final_malo_2_escape' },
+        { min: 8, next: 'final_malo_2_arrestado' },
+        { min: 0, next: 'final_malo_2_muerte' },
+      ],
     },
-  ],
-},
-
-escondite_sigilo: {
-  id: 'escondite_sigilo',
-  type: 'roll',
-  scene: 'escena_alcantarillas.png',
-  npcs: [],
-  text: (character) => `Te mueves pegado a la pared, pisando donde no hay agua.${character.isInjured ? '\n\n⚠️ Estás malherido. Recibirás una penalización de -2.' : ''}`,
-  roll: {
-    attribute: 'dexterity',
-    label: 'Tirada de Destreza',
-    modifier: (character) => character.isInjured ? -2 : 0,
-    outcomes: [
-      { min: 11, next: 'escondite_sigilo_exito' },
-      { min: 0,  next: 'escondite_combate_gnomos' },
-    ],
   },
-},
 
-escondite_sigilo_exito: {
-  id: 'escondite_sigilo_exito',
-  type: 'choice',
-  scene: 'escena_escondite.png',
-  npcs: ['molibdeno.png', 'tecnecio.png', 'genomo.png'],
-  text: (character) => {
-    const base = `Llegas sin ser detectado a una sala grande e improvisada. Ves cajas apiladas, un mapa de la ciudad en la pared... y en el centro, discutiendo a voces, tres figuras: un gnomo corpulento con engranajes y cachivaches colgando del cinturón, un Tiefling de cuernos cortos con cara de pocos amigos, y un gnomo con sotana remendada que murmura algo en voz baja, casi como una oración. Del resto del grupo, ni rastro.`;
-    return base;
+  // ── FINALES ─────────────────────────────────────────────
+
+  final_bueno: {
+    id: 'final_bueno',
+    type: 'narration',
+    scene: 'escena_plaza.png',
+    npcs: [],
+    text: () => `La plaza de Valdris amaneció diferente ese día. DaBiZ El-NoHomo esposado, con el sombrero ridículo confiscado y una expresión que no es del todo de derrota sino de alguien catalogando mentalmente qué salió mal para no repetirlo. Yeromi a su lado, con la mirada al frente y sin dar la satisfacción de ninguna reacción visible. El tesoro del monarca, recuperado y contabilizado hasta el último objeto.
+
+La Capitana Aldara habló ante la guardia reunida y pronunció tu nombre con la misma precisión con la que hace todas las cosas. No fue un discurso largo. Aldara no hace discursos largos. Pero fue suficiente.
+
+Mientras los llevaban, DaBiZ giró la cabeza hacia ti. La expresión de su cara no era lo que esperabas: no era rabia ni humillación. Era algo que se parecía peligrosamente a la consideración de alguien evaluando a un rival. "Hasta la próxima, forastero," dijo, lo suficientemente en voz baja como para que solo tú lo oyeras. Y algo en su tono te dijo que no era una amenaza vacía.`,
+    next: null,
   },
-  choices: [
-    {
-      text: '"Escucho lo que dicen antes de actuar."',
-      next: 'escondite_escuchar',
-    },
-    {
-      text: '"Me lanzo sobre ellos por sorpresa."',
-      next: 'escondite_combate_gnomos',
-    },
-    {
-      text: '"Aprovecho para registrar la sala antes de que me vean."',
-      condition: (character) =>
-        (character.race === 'halfling' || character.class === 'rogue') &&
-        character.attributes.find((a) => a.id === 'dexterity')?.value >= 12,
-      next: 'libro_cuentas',
-    },
-  ],
-},
 
-escondite_escuchar: {
-  id: 'escondite_escuchar',
-  type: 'narration',
-  scene: 'escena_escondite.png',
-  npcs: ['molibdeno.png', 'tecnecio.png', 'genomo.png'],
-  text: () => `El gnomo de los engranajes gesticula exasperado. "¡Yo digo que deberíamos habernos llevado también los candelabros!"\nEl Tiefling lo fulmina con la mirada. "Cierra. La. Boca. Molibdeno."\nEl de la sotana, sereno: "El Señor DaBiZ volverá pronto. Tened fe, Tecnecio."\n\nMolibdeno. Tecnecio. Y un tal DaBiZ que aún no está aquí, pero que claramente manda. Están esperando a alguien.`,
-  onEnter: ({ addClue, setFlag }) => {
-    addClue('nombres_banda');
-    setFlag('knows_dabiz_name');
+  final_neutral: {
+    id: 'final_neutral',
+    type: 'narration',
+    scene: 'escena_puerto.png',
+    npcs: [],
+    text: () => `El tesoro está de vuelta en las arcas del monarca, eso es lo que importa según la Capitana Aldara, y en términos prácticos tiene razón. Pero hay algo que no encaja bien en la manera en que terminó esto.
+
+En el último segundo, cuando el perímetro ya estaba cerrado y no había salida visible, DaBiZ y Yeromi encontraron una. Un pasaje que ninguno de vosotros había identificado, estrecho, perfectamente calculado. Desaparecieron en el sistema de alcantarillas de Valdris como si el agua los hubiera absorbido.
+
+Aldara firmó el pago acordado sin decir mucho. "Hiciste lo que te pedí", fue todo. Tu nombre no llegará a los registros oficiales. En los bajos fondos de la ciudad, sin embargo, ya corre una historia sobre un forastero que estuvo a punto. Las historias sobre los que casi lo consiguen también tienen su valor, aunque cueste reconocerlo.`,
+    next: null,
   },
-  next: 'encuentro_dabiz',
-},
 
-escondite_combate_gnomos: {
-  id: 'escondite_combate_gnomos',
-  type: 'combat',
-  scene: 'escena_escondite.png',
-  npcs: ['molibdeno.png', 'tecnecio.png', 'genomo.png'],
-  text: () => `Te descubren. El gnomo de los engranajes lanza un artilugio que explota en la dirección equivocada, el Tiefling dispara un rayo que casi te roza, y el de la sotana invoca una bendición que no parece funcionar del todo bien.`,
-  combat: {
-    label: 'Combate — Molibdeno, Tecnecio y Genomo',
-    attribute: 'strength',
-    modifier: (character) => character.isInjured ? -2 : 0,
-    outcomes: [
-      { min: 11, next: 'encuentro_dabiz' },
-      { min: 0,  next: 'camino_acusacion' },
-    ],
+  final_malo_1: {
+    id: 'final_malo_1',
+    type: 'narration',
+    scene: 'escena_alcantarillas.png',
+    npcs: [],
+    text: () => `DaBiZ no necesitó levantar la voz. Solo levantó la mano.
+
+El aire se volvió espeso de una manera que no tenía explicación física, como si de repente hubiera demasiado peso en él, y tus rodillas decidieron por su cuenta que el suelo era un buen sitio donde estar. "No eres mala persona," dijo DaBiZ, mirándote desde arriba con algo parecido a la pena genuina. "Llegaste bastante lejos, la verdad. Otro día, quizás."
+
+Cuando volviste a ser capaz de moverte, el escondite estaba vacío. Limpio, casi. Como si nunca hubiera pasado nada.
+
+La Capitana Aldara te escuchó hasta el final sin interrumpirte. Luego miró durante un momento largo hacia la ventana. "Descansa", fue lo único que dijo. El dinero que pasó de su mano a la tuya era menos de lo acordado, y los dos sabíais por qué. Nadie habló del fracaso en voz alta. Pero en Valdris, el silencio también comunica.`,
+    next: null,
   },
-},
 
-escondite_capitan: {
-  id: 'escondite_capitan',
-  type: 'combat',
-  scene: 'escena_escondite.png',
-  npcs: ['molibdeno.png', 'tecnecio.png', 'genomo.png'],
-  text: () => `Media hora después, la Capitana Aldara llega con seis guardias de confianza. "Bien hecho al avisarme", dice. "Entramos juntos."\n\nEl asalto es más caótico pero más seguro. Molibdeno se rinde casi de inmediato. Tecnecio lanza un hechizo que derriba a dos guardias antes de ser inmovilizado. Genomo reza en voz alta todo el tiempo.`,
-  combat: {
-    label: 'Combate — Con refuerzos (+3)',
-    attribute: 'strength',
-    modifier: () => 3,
-    outcomes: [
-      { min: 8, next: 'encuentro_dabiz_capitan' },
-      { min: 0, next: 'camino_acusacion' },
-    ],
+  final_malo_2_escape: {
+    id: 'final_malo_2_escape',
+    type: 'narration',
+    scene: 'escena_calles.png',
+    npcs: [],
+    text: () => `Conseguiste salir. Eso es lo que te dices mientras las murallas de Valdris se hacen pequeñas a tu espalda, mientras el camino bajo tus pies es el único plan que tienes.
+
+En el tablón de edictos de la puerta norte, alcanzaste a leer tu descripción antes de pasar. Alguien que te conoce bastante bien escribió ese texto: los detalles son precisos, la recompensa es lo suficientemente generosa como para que valga la pena, y la acusación es tan específica que va a ser difícil de rebatir sin pruebas que ya no tienes.
+
+Valdris quedó atrás. El verdadero culpable sigue dentro de sus murallas, probablemente ya trabajando en el siguiente golpe. Y tú en la carretera, sin nada excepto la certeza de que sabes cómo termina esta historia aunque no puedas contarla.`,
+    next: null,
   },
-},
 
-escondite_directo: {
-  id: 'escondite_directo',
-  type: 'combat',
-  scene: 'escena_escondite.png',
-  npcs: ['molibdeno.png', 'tecnecio.png', 'genomo.png'],
-  text: () => `Pateas la puerta. O lo que sirve de puerta en una alcantarilla.`,
-  combat: {
-    label: 'Combate — Molibdeno, Tecnecio y Genomo',
-    attribute: 'strength',
-    modifier: () => 0,
-    outcomes: [
-      { min: 11, next: 'encuentro_dabiz' },
-      { min: 0,  next: 'camino_acusacion' },
-    ],
+  final_malo_2_arrestado: {
+    id: 'final_malo_2_arrestado',
+    type: 'narration',
+    scene: 'escena_celda.png',
+    npcs: [],
+    text: () => `Las rejas de la celda son viejas y están oxidadas en las juntas, lo cual es lo primero en lo que te fijas porque tu cerebro necesita concentrarse en algo que no sea la situación en su totalidad.
+
+Nadie escucha tu historia. No porque no tengas una: la tienes, completa, con lógica y detalles que cualquier investigador competente podría verificar. El problema es que los investigadores competentes tienen razones para no querer verificarla. Los testigos que podrían respaldarte están en la nómina de las personas equivocadas. Y tú eres forastero, lo cual significa que en Valdris no eres nadie hasta que alguien decide quién quiere que seas.
+
+El verdadero culpable nunca es encontrado. El tesoro, nunca recuperado. Y tú con todo el tiempo del mundo para pensar en el momento exacto en que las cosas se torcieron, y en si hubieras podido hacer algo diferente.`,
+    next: null,
   },
-},
 
-libro_cuentas: {
-  id: 'libro_cuentas',
-  type: 'narration',
-  scene: 'escena_escondite.png',
-  npcs: [],
-  text: () => `Mientras los tres discuten, tus dedos recorren las cajas. Bajo un tablón suelto encuentras un libro encuadernado en cuero verde. Dentro: nombres, fechas, cantidades. Funcionarios de la ciudad. Comerciantes. Algunos guardias. Y el nombre de alguien muy cercano al monarca.\n\nDaBiZ lleva años sobornando a medio Valdris.`,
-  onEnter: ({ addClue, setFlag }) => {
-    addClue('libro_cuentas_dabiz');
-    setFlag('has_ledger');
+  final_malo_2_muerte: {
+    id: 'final_malo_2_muerte',
+    type: 'narration',
+    scene: 'escena_calles.png',
+    npcs: [],
+    text: () => `Hay demasiados. Eso es lo último que procesas con claridad antes de que el número deje de ser manejable y el resultado deje de estar en duda.
+
+El pensamiento final que te cruza por la mente tiene el sabor específico de la ironía: llegaste a Valdris a resolver un crimen y vas a acabar convertido en uno. El verdadero culpable sigue libre. El tesoro sigue perdido. Y la ciudad seguirá adelante mañana como si nada, porque las ciudades siempre lo hacen.`,
+    next: null,
   },
-  next: 'encuentro_dabiz',
-},
 
-// ── ACTO 5 — DABIZ ─────────────────────────────────────
+  final_secreto: {
+    id: 'final_secreto',
+    type: 'narration',
+    scene: 'escena_trono.png',
+    npcs: ['capitana.png'],
+    text: () => `La Capitana Aldara tardó más de lo habitual en reaccionar cuando pusiste el libro encuadernado en verde sobre su mesa. Lo leyó despacio, pasando las páginas con cuidado, y el silencio en la sala fue cambiando de textura a medida que avanzaba.
 
-encuentro_dabiz: {
-  id: 'encuentro_dabiz',
-  type: 'choice',
-  scene: 'escena_escondite.png',
-  npcs: ['dabiz.png', 'yeromi.png'],
-  text: (character, flags) => {
-    const knowsName = flags?.knows_dabiz_name || flags?.knows_nohomo;
-    const hasLedger = flags?.has_ledger;
+Cuando levantó la vista, tenías delante a alguien que acababa de enterarse de algo que cambia fundamentalmente cómo entiende el lugar donde lleva años trabajando. "Esto va mucho más arriba de lo que pensaba", dijo, y en su voz había algo que no habías oído antes: no exactamente miedo, pero algo adyacente a él.
 
-    const intro = `Lo oyes antes de verlo. Una voz tranquila, casi aburrida. "Sabía que llegarías aquí tarde o temprano."\n\nDe entre las sombras aparece un gnomo que no se parece a ninguno que hayas visto antes. Ancho de hombros, de complexión imposiblemente robusta para su tamaño, con el cuello de un toro y los puños de alguien que ha ganado muchas peleas y ha disfrutado de todas ellas. Recorriéndole el pómulo izquierdo, un tatuaje tribal de tinta oscura que le da un aire entre feroz y aristocrático. A su lado, una gnoma con ojos de depredador y dos dagas al cinto que ya lleva en la mano.`;
+DaBiZ fue arrestado sin resistencia. Sabía lo que significaba el libro en manos de la Capitana, y sabía que pelear en ese momento no cambiaba nada que no estuviera ya decidido. Uno a uno, en los días y semanas siguientes, los nombres del registro fueron teniendo consecuencias. Algunos cayeron rápido. Otros tuvieron tiempo de esconderse.
 
-    const greeting = knowsName
-      ? `\n\n"DaBiZ El-NoHomo en persona. Más bajito de lo que esperaba."`
-      : `\n\nEl gnomo sonríe al ver tu expresión. "¿Buscabas al NoHomo? Pues ya me has encontrado."`;
+Tu nombre no aparece en ningún informe oficial. Es demasiado peligroso que aparezca. Pero la bolsa que Aldara puso en tus manos pesaba considerablemente más de lo acordado, y la frase con la que te despidió fue lo suficientemente clara: "Nunca estuviste aquí."
 
-    const ledgerLine = hasLedger
-      ? `\n\n"Veo que has encontrado mi contabilidad. Qué inconveniente." La sonrisa no desaparece. "Eso cambia las cosas."`
-      : '';
-
-    return `${intro}${greeting}${ledgerLine}\n\n"¿Sabes cuánta gente ha intentado detenerme?" La sonrisa no desaparece. "Interesante que hayas llegado tan lejos."`;
+Saliste a la calle de Valdris, que seguía siendo la misma ciudad pero que ya sabías que no lo era del todo, y eso tenía que ser suficiente.`,
+    next: null,
   },
-  choices: [
-    {
-      text: '"Entrégate. La Capitana ya tiene pruebas de todo."',
-      condition: (character, flags) => flags?.has_ledger,
-      next: 'final_secreto',
-    },
-    {
-      text: '"Esto se acaba aquí."',
-      next: 'combate_final',
-    },
-  ],
-},
-
-encuentro_dabiz_capitan: {
-  id: 'encuentro_dabiz_capitan',
-  type: 'combat',
-  scene: 'escena_escondite.png',
-  npcs: ['dabiz.png', 'yeromi.png'],
-  text: () => `La Capitana Aldara entra detrás de ti. DaBiZ mira los refuerzos, luego a su compañera, que niega con la cabeza casi imperceptiblemente. La aritmética no le favorece.\n\n"Interesante." DaBiZ se ajusta el sombrero. "Aun así, no pienso rendirme sin más."`,
-  combat: {
-    label: 'Combate Final — DaBiZ y su banda (con refuerzos)',
-    attribute: 'strength',
-    modifier: (character, flags, clues, isInjured) => {
-      let mod = 2;
-      if (isInjured) mod -= 2;
-      return mod;
-    },
-    outcomes: [
-      { min: 14, next: 'final_bueno' },
-      { min: 10, next: 'final_neutral' },
-      { min: 0,  next: 'final_malo_1' },
-    ],
-  },
-},
-
-combate_final: {
-  id: 'combate_final',
-  type: 'combat',
-  scene: 'escena_escondite.png',
-  npcs: ['dabiz.png', 'yeromi.png'],
-  text: () => `La gnoma de las dagas se mueve primero, rápida como un pensamiento. DaBiZ empieza a murmurar palabras arcanas, el tatuaje de su cara brillando levemente con cada sílaba. No hay tiempo que perder.`,
-  combat: {
-    label: 'Combate Final — DaBiZ El-NoHomo',
-    attribute: 'strength',
-    modifier: (character, flags, clues, isInjured) => {
-      let mod = 0;
-      if (clues?.length >= 4) mod += 2;
-      else if (clues?.length >= 2) mod += 1;
-      if (clues?.includes('libro_cuentas_dabiz')) mod += 1;
-      if (isInjured) mod -= 2;
-      return mod;
-    },
-    outcomes: [
-      { min: 14, next: 'final_bueno' },
-      { min: 10, next: 'final_neutral' },
-      { min: 0,  next: 'final_malo_1' },
-    ],
-  },
-},
-
-// ── CAMINO DE ACUSACIÓN ─────────────────────────────────
-
-camino_acusacion: {
-  id: 'camino_acusacion',
-  type: 'narration',
-  scene: 'escena_calles.png',
-  npcs: [],
-  text: () => `Antes de que puedas reponerte, la guardia de la ciudad aparece en masa. Un guardia corrupto está entre ellos. Y está hablando. Señalándote.\n\n"¡Es ese! ¡Lo vi salir de la cámara del tesoro!"`,
-  next: 'persecucion',
-},
-
-persecucion: {
-  id: 'persecucion',
-  type: 'combat',
-  scene: 'escena_calles.png',
-  npcs: [],
-  text: () => `La ciudad entera se vuelve contra ti. Los guardias corruptos han hecho bien su trabajo: eres forastero, no tienes coartada, y la historia que han contado es convincente. Las calles se cierran a tu alrededor.\n\nTres oleadas de guardias. Una tirada lo decide todo.`,
-  combat: {
-    label: 'Huida — Guardias de Valdris',
-    attribute: 'strength',
-    modifier: () => 0,
-    outcomes: [
-      { min: 14, next: 'final_malo_2_escape' },
-      { min: 8,  next: 'final_malo_2_arrestado' },
-      { min: 0,  next: 'final_malo_2_muerte' },
-    ],
-  },
-},
-
-// ── FINALES ─────────────────────────────────────────────
-
-final_bueno: {
-  id: 'final_bueno',
-  type: 'narration',
-  scene: 'escena_plaza.png',
-  npcs: [],
-  text: () => `DaBiZ y su compañera esposados. El tesoro recuperado. Cuando el monarca regresa, encuentra su ciudad intacta y a los culpables en el calabozo. La Capitana Aldara pronuncia tu nombre ante la ciudad entera.\n\nMientras se los llevan, DaBiZ te lanza una última mirada. No de derrota. De algo que se parece peligrosamente a la admiración. "Hasta la próxima, forastero."`,
-  next: null,
-},
-
-final_neutral: {
-  id: 'final_neutral',
-  type: 'narration',
-  scene: 'escena_puerto.png',
-  npcs: [],
-  text: () => `El tesoro está recuperado. Pero DaBiZ y su compañera, en el último segundo, se escabullen por un pasaje que ninguno de vosotros había visto. Desaparecen en la oscuridad como si nunca hubieran existido.\n\nLa Capitana Aldara suspira. "Al menos tenemos el oro." Te paga lo acordado. Tu nombre no llega a oídos del monarca. Pero en los bajos fondos de Valdris, empieza a circular una historia sobre un forastero que estuvo muy cerca.`,
-  next: null,
-},
-
-final_malo_1: {
-  id: 'final_malo_1',
-  type: 'narration',
-  scene: 'escena_alcantarillas.png',
-  npcs: [],
-  text: () => `DaBiZ levanta una mano y el aire a tu alrededor se vuelve espeso. Caes de rodillas. "No eres mala persona", dice casi con pena. "Pero hoy no era tu día."\n\nCuando despiertas, el escondite está vacío. El tesoro, desaparecido. La Capitana Aldara te escucha en silencio y luego mira hacia otro lado. Nadie habla del fracaso en voz alta, pero todo el mundo lo sabe.`,
-  next: null,
-},
-
-final_malo_2_escape: {
-  id: 'final_malo_2_escape',
-  type: 'narration',
-  scene: 'escena_calles.png',
-  npcs: [],
-  text: () => `Consigues salir de la ciudad. Malherido, sin un céntimo y con el nombre manchado. En el tablón de edictos de la puerta norte, mientras huyes, alcanzas a leer tu descripción: "Se busca. Ladrón del tesoro real."\n\nValdris queda atrás. Y el verdadero culpable, en algún lugar, ríe.`,
-  next: null,
-},
-
-final_malo_2_arrestado: {
-  id: 'final_malo_2_arrestado',
-  type: 'narration',
-  scene: 'escena_celda.png',
-  npcs: [],
-  text: () => `Las rejas son frías. Tu historia nadie la escucha. El verdadero culpable nunca es encontrado. El tesoro, nunca recuperado. Y tú, en el fondo de una celda de Valdris, con todo el tiempo del mundo para pensar en qué salió mal.`,
-  next: null,
-},
-
-final_malo_2_muerte: {
-  id: 'final_malo_2_muerte',
-  type: 'narration',
-  scene: 'escena_calles.png',
-  npcs: [],
-  text: () => `Los guardias son demasiados. El último pensamiento que te cruza por la mente, irónico y amargo, es que viniste a resolver un crimen y acabas siendo la víctima de otro.`,
-  next: null,
-},
-
-final_secreto: {
-  id: 'final_secreto',
-  type: 'narration',
-  scene: 'escena_trono.png',
-  npcs: ['capitana.png'],
-  text: () => `La Capitana Aldara pasa varios minutos leyendo el libro de cuentas en silencio. Cuando levanta la vista, tiene una expresión que no habías visto antes en ella: miedo.\n\n"Esto va mucho más arriba de lo que pensaba."\n\nDaBiZ es arrestado sin resistencia. Sabe que el libro lo condena más que cualquier combate. Uno a uno, los nombres del libro van cayendo. La ciudad de Valdris tarda semanas en procesar lo que ha pasado.\n\nNadie pronuncia tu nombre en público. Es demasiado peligroso. Pero la Capitana Aldara te entrega una bolsa considerablemente más pesada de lo acordado y una sola frase: "Nunca estuviste aquí."`,
-  next: null,
-},
 
 };

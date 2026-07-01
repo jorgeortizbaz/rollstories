@@ -140,4 +140,21 @@ export default {
     male: 'Мужской',
     female: 'Женский',
   },
+
+  game: {
+    continueLabel: 'Продолжить →',
+    endLabel: '— Конец —',
+    backToMenu: 'Вернуться в главное меню',
+    attributeLabel: 'Атрибут',
+    modifierLabel: 'Модификатор',
+    modifiersLabel: 'Модификаторы',
+    bonusLabel: 'бонус',
+    totalLabel: 'Итого',
+    rollHint: 'Нажмите на кость, чтобы бросить',
+    combatHint: 'Нажмите, чтобы сразиться',
+    injuredLabel: '🩸 Ранен (-2)',
+    rollOf: 'Бросок на',
+    combatLabel: 'Бой',
+  },
+
 };

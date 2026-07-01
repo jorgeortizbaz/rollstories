@@ -1,18 +1,16 @@
 import { useState } from 'react';
 import { useGame } from '../../context/GameContext';
+import { useLanguage } from '../../context/LanguageContext';
 import './NodeRoll.css';
 
-function NodeRoll({ node, character, flags, clues, isInjured }) {
+function NodeRoll({ node, character, flags, clues, isInjured, resolvedText }) {
   const { rollDice, getAttributeValue, goToNode } = useGame();
+  const { t } = useLanguage();
   const [rolling, setRolling] = useState(false);
   const [result, setResult] = useState(null);
   const [total, setTotal] = useState(null);
   const [outcome, setOutcome] = useState(null);
   const [displayNumber, setDisplayNumber] = useState(null);
-
-  const text = typeof node.text === 'function'
-    ? node.text(character, flags)
-    : node.text;
 
   const modifier = node.roll.modifier
     ? node.roll.modifier(character, flags, clues, isInjured)
@@ -20,6 +18,8 @@ function NodeRoll({ node, character, flags, clues, isInjured }) {
 
   const attrValue = getAttributeValue(node.roll.attribute);
   const attrBonus = Math.floor((attrValue - 10) / 2);
+  const attrName = t(`attributes.${node.roll.attribute}.name`);
+  const rollLabel = `${t('game.rollOf')} ${attrName}`;
 
   const handleRoll = () => {
     if (rolling || result !== null) return;
@@ -48,14 +48,14 @@ function NodeRoll({ node, character, flags, clues, isInjured }) {
 
   return (
     <div className="node-roll">
-      <p className="node-text">{text}</p>
+      <p className="node-text">{resolvedText}</p>
 
       <div className="roll-info">
-        <span className="roll-attr-label">{node.roll.label}</span>
+        <span className="roll-attr-label">{rollLabel}</span>
         <div className="roll-modifiers">
-          <span>Atributo: <strong>{attrValue}</strong> (bonus {attrBonus >= 0 ? `+${attrBonus}` : attrBonus})</span>
+          <span>{t('game.attributeLabel')}: <strong>{attrValue}</strong> ({t('game.bonusLabel')} {attrBonus >= 0 ? `+${attrBonus}` : attrBonus})</span>
           {modifier !== 0 && (
-            <span>Modificador: <strong>{modifier >= 0 ? `+${modifier}` : modifier}</strong></span>
+            <span>{t('game.modifierLabel')}: <strong>{modifier >= 0 ? `+${modifier}` : modifier}</strong></span>
           )}
         </div>
       </div>
@@ -72,12 +72,12 @@ function NodeRoll({ node, character, flags, clues, isInjured }) {
           </span>
         </div>
         {result === null && !rolling && (
-          <p className="dice-hint">Haz clic en el dado para tirar</p>
+          <p className="dice-hint">{t('game.rollHint')}</p>
         )}
         {result !== null && (
           <div className="roll-result">
             <p className="roll-total">
-              Total: <strong>{total}</strong>
+              {t('game.totalLabel')}: <strong>{total}</strong>
               <span className="roll-breakdown">
                 ({result} {attrBonus >= 0 ? `+${attrBonus}` : attrBonus}
                 {modifier !== 0 ? (modifier >= 0 ? ` +${modifier}` : ` ${modifier}`) : ''})
@@ -89,7 +89,7 @@ function NodeRoll({ node, character, flags, clues, isInjured }) {
 
       {outcome && (
         <button className="node-btn" onClick={() => goToNode(outcome.next)}>
-          Continuar →
+          {t('game.continueLabel')}
         </button>
       )}
     </div>

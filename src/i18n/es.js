@@ -179,5 +179,20 @@ export default {
     back: 'Volver',
   },
 
+  game: {
+    continueLabel: 'Continuar →',
+    endLabel: '— Fin —',
+    backToMenu: 'Volver al menú principal',
+    attributeLabel: 'Atributo',
+    modifierLabel: 'Modificador',
+    modifiersLabel: 'Modificadores',
+    bonusLabel: 'bonus',
+    totalLabel: 'Total',
+    rollHint: 'Haz clic en el dado para tirar',
+    combatHint: 'Haz clic para combatir',
+    injuredLabel: '🩸 Malherido (-2)',
+    rollOf: 'Tirada de',
+    combatLabel: 'Combate',
+  },
 
 };

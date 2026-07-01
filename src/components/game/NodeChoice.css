@@ -19,3 +19,10 @@
   letter-spacing: 0;
   line-height: 1.4;
 }
+
+@media (hover: none) {
+  .node-choices .node-btn:hover {
+    background: transparent;
+    color: var(--color-accent);
+  }
+}

@@ -1,0 +1,28 @@
+.game-ui {
+  flex: 1;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 220px 8rem 2rem;
+}
+
+@media (max-width: 1024px) {
+  .game-ui {
+    padding: 1.5rem 180px 7rem 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .game-ui {
+    padding: 1rem 1rem 7rem 1rem;
+  }
+}
+
+.game-scene-blur {
+  position: absolute;
+  inset: -20px;
+  background-size: cover;
+  background-position: center;
+  filter: blur(16px) brightness(0.4);
+  z-index: 0;
+}

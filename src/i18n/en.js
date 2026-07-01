@@ -140,4 +140,21 @@ export default {
     male: 'Male',
     female: 'Female',
   },
+
+  game: {
+    continueLabel: 'Continue →',
+    endLabel: '— The End —',
+    backToMenu: 'Back to main menu',
+    attributeLabel: 'Attribute',
+    modifierLabel: 'Modifier',
+    modifiersLabel: 'Modifiers',
+    bonusLabel: 'bonus',
+    totalLabel: 'Total',
+    rollHint: 'Click the die to roll',
+    combatHint: 'Click to fight',
+    injuredLabel: '🩸 Wounded (-2)',
+    rollOf: 'Roll of',
+    combatLabel: 'Combat',
+  },
+
 };

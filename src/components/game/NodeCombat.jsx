@@ -1,18 +1,16 @@
 import { useState } from 'react';
 import { useGame } from '../../context/GameContext';
+import { useLanguage } from '../../context/LanguageContext';
 import './NodeCombat.css';
 
-function NodeCombat({ node, character, flags, clues, isInjured }) {
+function NodeCombat({ node, character, flags, clues, isInjured, resolvedText }) {
   const { rollDice, getAttributeValue, goToNode, setIsInjured } = useGame();
+  const { t } = useLanguage();
   const [rolling, setRolling] = useState(false);
   const [result, setResult] = useState(null);
   const [total, setTotal] = useState(null);
   const [outcome, setOutcome] = useState(null);
   const [displayNumber, setDisplayNumber] = useState(null);
-
-  const text = typeof node.text === 'function'
-    ? node.text(character, flags)
-    : node.text;
 
   const modifier = node.combat.modifier
     ? node.combat.modifier(character, flags, clues, isInjured)
@@ -21,6 +19,8 @@ function NodeCombat({ node, character, flags, clues, isInjured }) {
   const attrValue = getAttributeValue(node.combat.attribute);
   const attrBonus = Math.floor((attrValue - 10) / 2);
   const totalModifier = modifier;
+  const attrName = t(`attributes.${node.combat.attribute}.name`);
+  const rollLabel = `${t('game.rollOf')} ${attrName}`;
 
   const handleRoll = () => {
     if (rolling || result !== null) return;
@@ -52,22 +52,20 @@ function NodeCombat({ node, character, flags, clues, isInjured }) {
   return (
     <div className="node-combat">
       <div className="combat-header">
-        <span className="combat-label"> {node.combat.label}</span>
+        <span className="combat-label">⚔️ {t('game.combatLabel')}</span>
         {isInjured && (
-          <span className="combat-injured">🩸 Malherido (-2)</span>
+          <span className="combat-injured">{t('game.injuredLabel')}</span>
         )}
       </div>
 
-      <p className="node-text">{text}</p>
+      <p className="node-text">{resolvedText}</p>
 
       <div className="roll-info">
-        <span className="roll-attr-label">
-          {node.combat.attribute === 'strength' ? 'Tirada de Fuerza' : 'Tirada de Destreza'}
-        </span>
+        <span className="roll-attr-label">{rollLabel}</span>
         <div className="roll-modifiers">
-          <span>Atributo: <strong>{attrValue}</strong> (bonus {attrBonus >= 0 ? `+${attrBonus}` : attrBonus})</span>
+          <span>{t('game.attributeLabel')}: <strong>{attrValue}</strong> ({t('game.bonusLabel')} {attrBonus >= 0 ? `+${attrBonus}` : attrBonus})</span>
           {totalModifier !== 0 && (
-            <span>Modificadores: <strong>{totalModifier >= 0 ? `+${totalModifier}` : totalModifier}</strong></span>
+            <span>{t('game.modifiersLabel')}: <strong>{totalModifier >= 0 ? `+${totalModifier}` : totalModifier}</strong></span>
           )}
         </div>
       </div>
@@ -84,12 +82,12 @@ function NodeCombat({ node, character, flags, clues, isInjured }) {
           </span>
         </div>
         {result === null && !rolling && (
-          <p className="dice-hint">Haz clic para combatir</p>
+          <p className="dice-hint">{t('game.combatHint')}</p>
         )}
         {result !== null && (
           <div className="roll-result">
             <p className="roll-total">
-              Total: <strong>{total}</strong>
+              {t('game.totalLabel')}: <strong>{total}</strong>
               <span className="roll-breakdown">
                 ({result} {attrBonus >= 0 ? `+${attrBonus}` : attrBonus}
                 {totalModifier !== 0 ? (totalModifier >= 0 ? ` +${totalModifier}` : ` ${totalModifier}`) : ''})
@@ -101,7 +99,7 @@ function NodeCombat({ node, character, flags, clues, isInjured }) {
 
       {outcome && (
         <button className="node-btn" onClick={() => goToNode(outcome.next)}>
-          Continuar →
+          {t('game.continueLabel')}
         </button>
       )}
     </div>

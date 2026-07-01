@@ -2,27 +2,23 @@ import { useApp } from '../../context/AppContext';
 import { useLanguage } from '../../context/LanguageContext';
 import './NodeNarration.css';
 
-function NodeNarration({ node, character, flags, onNext }) {
+function NodeNarration({ node, character, flags, resolvedText, onNext }) {
   const { navigateTo } = useApp();
   const { t } = useLanguage();
 
-  const text = typeof node.text === 'function'
-    ? node.text(character, flags)
-    : node.text;
-
   return (
     <div className="node-narration">
-      <p className="node-text">{text}</p>
+      <p className="node-text">{resolvedText}</p>
       {node.next !== null && (
         <button className="node-btn" onClick={onNext}>
-          Continuar →
+          {t('game.continueLabel')}
         </button>
       )}
       {node.next === null && (
         <div className="node-end">
-          <p className="node-end-label">— Fin —</p>
+          <p className="node-end-label">{t('game.endLabel')}</p>
           <button className="node-btn" onClick={() => navigateTo('mainMenu')}>
-            Volver al menú principal
+            {t('game.backToMenu')}
           </button>
         </div>
       )}

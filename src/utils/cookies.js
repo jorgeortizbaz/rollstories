@@ -10,6 +10,7 @@ export const saveGame = (storyId, gameState) => {
     flags: gameState.flags,
     clues: gameState.clues,
     isInjured: gameState.isInjured,
+    character: gameState.character,
     savedAt: new Date().toISOString(),
   };
   Cookies.set(key, JSON.stringify(data), { expires: COOKIE_EXPIRY_DAYS });

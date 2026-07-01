@@ -3,7 +3,7 @@ import { saveGame, loadGame } from '../utils/cookies';
 
 const GameContext = createContext(null);
 
-export function GameProvider({ children, storyId, character }) {
+export function GameProvider({ children, storyId, character: characterProp }) {
   const saved = loadGame(storyId);
 
   const [currentNodeId, setCurrentNodeId] = useState(
@@ -12,12 +12,12 @@ export function GameProvider({ children, storyId, character }) {
   const [flags, setFlags] = useState(saved?.flags ?? {});
   const [clues, setClues] = useState(saved?.clues ?? []);
   const [isInjured, setIsInjured] = useState(saved?.isInjured ?? false);
+  const [character] = useState(saved?.character ?? characterProp);
   const [pendingRoll, setPendingRoll] = useState(null);
   const [lastRollResult, setLastRollResult] = useState(null);
-  const [combatRound, setCombatRound] = useState(0);
 
   useEffect(() => {
-    saveGame(storyId, { currentNodeId, flags, clues, isInjured });
+    saveGame(storyId, { currentNodeId, flags, clues, isInjured, character });
   }, [currentNodeId, flags, clues, isInjured]);
 
   const goToNode = (nodeId) => {
@@ -52,9 +52,9 @@ export function GameProvider({ children, storyId, character }) {
   return (
     <GameContext.Provider value={{
       currentNodeId, flags, clues, isInjured,
+      character,
       pendingRoll, setPendingRoll,
       lastRollResult, setLastRollResult,
-      combatRound, setCombatRound,
       goToNode, addClue, setFlag,
       rollDice, getAttributeValue, getClueBonus,
       setIsInjured,
