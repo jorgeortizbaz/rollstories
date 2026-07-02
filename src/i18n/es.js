@@ -195,4 +195,9 @@ export default {
     combatLabel: 'Combate',
   },
 
+  modifiers: {
+  race: 'raza',
+  class: 'clase',
+},
+
 };

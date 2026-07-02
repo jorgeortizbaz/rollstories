@@ -41,18 +41,33 @@ function Game() {
   const npcImages = (node.npcs ?? []).map(getNpcImage).filter(Boolean);
 
   const resolveText = (node) => {
-    const langTexts = GNOMABANDISTAS_TEXTS[language];
-    const textFn = langTexts?.[node.id];
-    if (textFn) return textFn(character, flags);
-    const fallback = node.text;
-    return typeof fallback === 'function' ? fallback(character, flags) : fallback;
+    try {
+      const langTexts = GNOMABANDISTAS_TEXTS[language];
+      const textFn = langTexts?.[node.id];
+      if (textFn) return textFn(character, flags);
+      const fallback = node.text;
+      return typeof fallback === 'function' ? fallback(character, flags) : (fallback ?? '');
+    } catch (e) {
+      console.error('Error resolviendo texto para nodo:', node.id, e);
+      try {
+        const fallback = node.text;
+        return typeof fallback === 'function' ? fallback(character, flags) : (fallback ?? '');
+      } catch {
+        return '';
+      }
+    }
   };
 
   const resolveChoices = (node) => {
     if (node.type !== 'choice') return null;
-    const langChoices = GNOMABANDISTAS_TEXTS[language]?.choices?.[node.id];
-    if (!langChoices) return node.choices.map((c) => c.text);
-    return node.choices.map((c, i) => langChoices[i] ?? c.text);
+    try {
+      const langChoices = GNOMABANDISTAS_TEXTS[language]?.choices?.[node.id];
+      if (!langChoices) return node.choices.map((c) => c.text);
+      return node.choices.map((c, i) => langChoices[i] ?? c.text);
+    } catch (e) {
+      console.error('Error resolviendo choices para nodo:', node.id, e);
+      return node.choices.map((c) => c.text);
+    }
   };
 
   return (
@@ -80,16 +95,16 @@ function Game() {
 
       <div className="game-ui">
         {node.type === 'narration' && (
-          <NodeNarration node={node} character={character} flags={flags} resolvedText={resolveText(node)} onNext={() => goToNode(node.next)} />
+          <NodeNarration key={node.id} node={node} character={character} flags={flags} resolvedText={resolveText(node)} onNext={() => goToNode(node.next)} />
         )}
         {node.type === 'choice' && (
-          <NodeChoice node={node} character={character} flags={flags} resolvedText={resolveText(node)} resolvedChoices={resolveChoices(node)} onChoice={(next) => goToNode(next)} />
+          <NodeChoice key={node.id} node={node} character={character} flags={flags} resolvedText={resolveText(node)} resolvedChoices={resolveChoices(node)} onChoice={(next) => goToNode(next)} />
         )}
         {node.type === 'roll' && (
-          <NodeRoll node={node} character={character} flags={flags} clues={clues} isInjured={isInjured} resolvedText={resolveText(node)} />
+          <NodeRoll key={node.id} node={node} character={character} flags={flags} clues={clues} isInjured={isInjured} resolvedText={resolveText(node)} />
         )}
         {node.type === 'combat' && (
-          <NodeCombat node={node} character={character} flags={flags} clues={clues} isInjured={isInjured} resolvedText={resolveText(node)} />
+          <NodeCombat key={node.id} node={node} character={character} flags={flags} clues={clues} isInjured={isInjured} resolvedText={resolveText(node)} />
         )}
       </div>
 

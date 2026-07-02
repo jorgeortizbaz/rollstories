@@ -17,8 +17,8 @@ function CharacterCreation() {
   const [selectedClass, setSelectedClass] = useState(CLASSES[0].id);
 
   useEffect(() => {
-  window.scrollTo(0, 0);
-}, [step]);
+    window.scrollTo(0, 0);
+  }, [step]);
 
   const currentRace = RACES.find((r) => r.id === selectedRace);
   const currentClass = CLASSES.find((c) => c.id === selectedClass);
@@ -41,20 +41,20 @@ function CharacterCreation() {
   };
 
   const handleStart = () => {
-  const finalImage = getCharacterImage(selectedRace, selectedSex, selectedClass);
-  navigateTo('game', {
-    character: {
-      race: selectedRace,
-      class: selectedClass,
-      sex: selectedSex,
-      attributes: computeAttributes(),
-      portrait: finalImage,
-    },
-  });
-  
+    const finalImage = getCharacterImage(selectedRace, selectedSex, selectedClass);
+    navigateTo('game', {
+      character: {
+        race: selectedRace,
+        class: selectedClass,
+        sex: selectedSex,
+        attributes: computeAttributes(),
+        portrait: finalImage,
+      },
+    });
 
-  
-};
+
+
+  };
 
   return (
     <div className="cc-wrapper">
@@ -159,7 +159,7 @@ function CharacterCreation() {
                 <h3>{t(`classes.${cls.id}.name`)}</h3>
                 <p>{t(`classes.${cls.id}.description`)}</p>
                 <p className="cc-tip">
-                   {t('classRecommendation.label')}{' '}
+                  {t('classRecommendation.label')}{' '}
                   {cls.recommendedRaces.map((r) => t(`races.${r}.name`)).join(', ')}
                 </p>
               </div>
@@ -182,12 +182,12 @@ function CharacterCreation() {
                   <span className="cc-attr-mods">
                     {attr.raceMod !== 0 && (
                       <span className={attr.raceMod > 0 ? 'positive' : 'negative'}>
-                        {attr.raceMod > 0 ? `+${attr.raceMod}` : attr.raceMod} raza
+                        {attr.raceMod > 0 ? `+${attr.raceMod}` : attr.raceMod} {t('modifiers.race')}
                       </span>
                     )}
                     {attr.classMod !== 0 && (
                       <span className={attr.classMod > 0 ? 'positive' : 'negative'}>
-                        {attr.classMod > 0 ? `+${attr.classMod}` : attr.classMod} clase
+                        {attr.classMod > 0 ? `+${attr.classMod}` : attr.classMod} {t('modifiers.class')}
                       </span>
                     )}
                   </span>
