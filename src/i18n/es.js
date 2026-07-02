@@ -193,6 +193,7 @@ export default {
     injuredLabel: '🩸 Malherido (-2)',
     rollOf: 'Tirada de',
     combatLabel: 'Combate',
+    targetLabel: 'Objetivo',
   },
 
   modifiers: {

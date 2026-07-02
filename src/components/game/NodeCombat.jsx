@@ -1,7 +1,17 @@
 import { useState } from 'react';
 import { useGame } from '../../context/GameContext';
 import { useLanguage } from '../../context/LanguageContext';
+import { CLASSES } from '../../data/systems/dnd/classes';
+import { getEnemyModifier } from '../../data/systems/dnd/enemies';
 import './NodeCombat.css';
+
+const INJURY_PENALTY = -2;
+
+const getTargetNumber = (outcomes) => {
+  const nonZero = outcomes.map((o) => o.min).filter((m) => m > 0);
+  if (nonZero.length === 0) return 0;
+  return Math.min(...nonZero);
+};
 
 function NodeCombat({ node, character, flags, clues, isInjured, resolvedText }) {
   const { rollDice, getAttributeValue, goToNode, setIsInjured } = useGame();
@@ -12,15 +22,21 @@ function NodeCombat({ node, character, flags, clues, isInjured, resolvedText }) 
   const [outcome, setOutcome] = useState(null);
   const [displayNumber, setDisplayNumber] = useState(null);
 
-  const modifier = node.combat.modifier
+  const classDef = CLASSES.find((c) => c.id === character.class);
+  const combatAttribute = classDef?.combatAttribute ?? 'strength';
+
+  const situationalModifier = node.combat.modifier
     ? node.combat.modifier(character, flags, clues, isInjured)
     : 0;
+  const injuryPenalty = isInjured ? INJURY_PENALTY : 0;
+  const enemyModifier = getEnemyModifier(node.combat.enemyId ?? node.id);
+  const totalModifier = situationalModifier + injuryPenalty + enemyModifier;
 
-  const attrValue = getAttributeValue(node.combat.attribute);
+  const attrValue = getAttributeValue(combatAttribute);
   const attrBonus = Math.floor((attrValue - 10) / 2);
-  const totalModifier = modifier;
-  const attrName = t(`attributes.${node.combat.attribute}.name`);
+  const attrName = t(`attributes.${combatAttribute}.name`);
   const rollLabel = `${t('game.rollOf')} ${attrName}`;
+  const target = getTargetNumber(node.combat.outcomes);
 
   const handleRoll = () => {
     if (rolling || result !== null) return;
@@ -64,9 +80,13 @@ function NodeCombat({ node, character, flags, clues, isInjured, resolvedText }) 
         <span className="roll-attr-label">{rollLabel}</span>
         <div className="roll-modifiers">
           <span>{t('game.attributeLabel')}: <strong>{attrValue}</strong> ({t('game.bonusLabel')} {attrBonus >= 0 ? `+${attrBonus}` : attrBonus})</span>
-          {totalModifier !== 0 && (
-            <span>{t('game.modifiersLabel')}: <strong>{totalModifier >= 0 ? `+${totalModifier}` : totalModifier}</strong></span>
+          {situationalModifier !== 0 && (
+            <span>{t('game.modifiersLabel')}: <strong>{situationalModifier >= 0 ? `+${situationalModifier}` : situationalModifier}</strong></span>
           )}
+          {isInjured && (
+            <span className="injury-line">{t('game.injuredLabel')}: <strong>{injuryPenalty}</strong></span>
+          )}
+          <span className="roll-target">{t('game.targetLabel')}: <strong>{target}</strong></span>
         </div>
       </div>
 

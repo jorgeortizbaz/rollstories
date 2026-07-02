@@ -3,6 +3,14 @@ import { useGame } from '../../context/GameContext';
 import { useLanguage } from '../../context/LanguageContext';
 import './NodeRoll.css';
 
+const INJURY_PENALTY = -2;
+
+const getTargetNumber = (outcomes) => {
+  const nonZero = outcomes.map((o) => o.min).filter((m) => m > 0);
+  if (nonZero.length === 0) return 0;
+  return Math.min(...nonZero);
+};
+
 function NodeRoll({ node, character, flags, clues, isInjured, resolvedText }) {
   const { rollDice, getAttributeValue, goToNode } = useGame();
   const { t } = useLanguage();
@@ -12,14 +20,17 @@ function NodeRoll({ node, character, flags, clues, isInjured, resolvedText }) {
   const [outcome, setOutcome] = useState(null);
   const [displayNumber, setDisplayNumber] = useState(null);
 
-  const modifier = node.roll.modifier
+  const situationalModifier = node.roll.modifier
     ? node.roll.modifier(character, flags, clues, isInjured)
     : 0;
+  const injuryPenalty = isInjured ? INJURY_PENALTY : 0;
+  const modifier = situationalModifier + injuryPenalty;
 
   const attrValue = getAttributeValue(node.roll.attribute);
   const attrBonus = Math.floor((attrValue - 10) / 2);
   const attrName = t(`attributes.${node.roll.attribute}.name`);
   const rollLabel = `${t('game.rollOf')} ${attrName}`;
+  const target = getTargetNumber(node.roll.outcomes);
 
   const handleRoll = () => {
     if (rolling || result !== null) return;
@@ -54,9 +65,13 @@ function NodeRoll({ node, character, flags, clues, isInjured, resolvedText }) {
         <span className="roll-attr-label">{rollLabel}</span>
         <div className="roll-modifiers">
           <span>{t('game.attributeLabel')}: <strong>{attrValue}</strong> ({t('game.bonusLabel')} {attrBonus >= 0 ? `+${attrBonus}` : attrBonus})</span>
-          {modifier !== 0 && (
-            <span>{t('game.modifierLabel')}: <strong>{modifier >= 0 ? `+${modifier}` : modifier}</strong></span>
+          {situationalModifier !== 0 && (
+            <span>{t('game.modifierLabel')}: <strong>{situationalModifier >= 0 ? `+${situationalModifier}` : situationalModifier}</strong></span>
           )}
+          {isInjured && (
+            <span className="injury-line">{t('game.injuredLabel')}: <strong>{injuryPenalty}</strong></span>
+          )}
+          <span className="roll-target">{t('game.targetLabel')}: <strong>{target}</strong></span>
         </div>
       </div>
 

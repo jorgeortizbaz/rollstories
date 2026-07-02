@@ -25,3 +25,11 @@
   color: #bf6767;
   letter-spacing: 0.05em;
 }
+
+.roll-target {
+  color: var(--color-accent);
+}
+
+.roll-target strong {
+  font-size: 1rem;
+}

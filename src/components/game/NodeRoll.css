@@ -89,11 +89,25 @@
 }
 
 @keyframes diceRoll {
-  0%   { transform: rotate(0deg) scale(1.05); }
-  25%  { transform: rotate(5deg) scale(1.08); }
-  50%  { transform: rotate(0deg) scale(1.05); }
-  75%  { transform: rotate(-5deg) scale(1.08); }
-  100% { transform: rotate(0deg) scale(1.05); }
+  0% {
+    transform: rotate(0deg) scale(1.05);
+  }
+
+  25% {
+    transform: rotate(5deg) scale(1.08);
+  }
+
+  50% {
+    transform: rotate(0deg) scale(1.05);
+  }
+
+  75% {
+    transform: rotate(-5deg) scale(1.08);
+  }
+
+  100% {
+    transform: rotate(0deg) scale(1.05);
+  }
 }
 
 /* ── Resultado ────────────────────────────────────────── */
@@ -128,4 +142,12 @@
   .dice-number {
     font-size: 1.6rem;
   }
+
+  .roll-target {
+    color: var(--color-accent);
+  }
+}
+
+.roll-target strong {
+  font-size: 1rem;
 }

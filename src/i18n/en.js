@@ -155,6 +155,7 @@ export default {
     injuredLabel: '🩸 Wounded (-2)',
     rollOf: 'Roll of',
     combatLabel: 'Combat',
+    targetLabel: 'Target',
   },
 
   modifiers: {

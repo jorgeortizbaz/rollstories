@@ -481,7 +481,7 @@ El sonido de voces llega antes de que veas ninguna luz. Alguien discute en algú
     roll: {
       attribute: 'dexterity',
       label: 'Tirada de Destreza',
-      modifier: (character) => character.isInjured ? -2 : 0,
+      modifier: () => 0,
       outcomes: [
         { min: 11, next: 'escondite_sigilo_exito' },
         { min: 0, next: 'escondite_combate_gnomos' },
@@ -551,7 +551,7 @@ Molibdeno lanza lo primero que tiene a mano, que resulta ser un artilugio que ex
     combat: {
       label: 'Combate — Molibdeno, Tecnecio y Genomo',
       attribute: 'strength',
-      modifier: (character) => character.isInjured ? -2 : 0,
+      modifier: () => 0,
       outcomes: [
         { min: 11, next: 'encuentro_dabiz' },
         { min: 0, next: 'camino_acusacion' },
@@ -661,11 +661,7 @@ Esto no es el registro de un golpe. Es el archivo operativo de alguien que lleva
     combat: {
       label: 'Combate Final — DaBiZ y su banda (con refuerzos)',
       attribute: 'strength',
-      modifier: (character, flags, clues, isInjured) => {
-        let mod = 2;
-        if (isInjured) mod -= 2;
-        return mod;
-      },
+      modifier: () => 2,
       outcomes: [
         { min: 14, next: 'final_bueno' },
         { min: 10, next: 'final_neutral' },
@@ -685,12 +681,11 @@ Al fondo de la sala, DaBiZ ha empezado a murmurar. Las palabras son en un idioma
     combat: {
       label: 'Combate Final — DaBiZ El-NoHomo',
       attribute: 'strength',
-      modifier: (character, flags, clues, isInjured) => {
+      modifier: (character, flags, clues) => {
         let mod = 0;
         if (clues?.length >= 4) mod += 2;
         else if (clues?.length >= 2) mod += 1;
         if (clues?.includes('libro_cuentas_dabiz')) mod += 1;
-        if (isInjured) mod -= 2;
         return mod;
       },
       outcomes: [

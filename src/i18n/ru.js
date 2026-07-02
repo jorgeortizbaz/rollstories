@@ -155,6 +155,7 @@ export default {
     injuredLabel: '🩸 Ранен (-2)',
     rollOf: 'Бросок на',
     combatLabel: 'Бой',
+    targetLabel: 'Цель',
   },
 
   modifiers: {
