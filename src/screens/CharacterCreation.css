@@ -155,6 +155,18 @@
   color: var(--color-accent);
 }
 
+.cc-sex-options button,
+.cc-sex-options button:hover,
+.cc-sex-options button:focus,
+.cc-sex-options button:active {
+  color: var(--color-accent) !important;
+}
+
+.cc-sex-options button.active,
+.cc-sex-options button.active:hover {
+  color: var(--color-bg) !important;
+}
+
 @media (hover: none) {
   .cc-sex-options button:not(.active):hover {
     opacity: 0.6;
