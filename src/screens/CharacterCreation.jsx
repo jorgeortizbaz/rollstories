@@ -1,87 +1,92 @@
 import { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { useLanguage } from '../context/LanguageContext';
-import { ATTRIBUTES, BASE_ATTRIBUTE_VALUE } from '../data/systems/dnd/attributes';
-import { RACES } from '../data/systems/dnd/races';
-import { CLASSES } from '../data/systems/dnd/classes';
-import { getCharacterImage } from '../assets/characters/index.js';
+import { SYSTEM_CONFIGS } from '../data/systems/registry';
 import './CharacterCreation.css';
+import { GAME_THEMES } from '../data/themes';
 
 function CharacterCreation() {
-  const { navigateTo } = useApp();
+  const { navigateTo, selectedStory } = useApp();
   const { t } = useLanguage();
 
+  const config = SYSTEM_CONFIGS[selectedStory.system];
+  const { origin, role, attributes: ATTRIBUTES, baseAttributeValue, sexOptions, getCharacterImage } = config;
+
   const [step, setStep] = useState(1);
-  const [selectedRace, setSelectedRace] = useState(RACES[0].id);
-  const [selectedSex, setSelectedSex] = useState('male');
-  const [selectedClass, setSelectedClass] = useState(CLASSES[0].id);
+  const [selectedOriginId, setSelectedOriginId] = useState(origin.list[0].id);
+  const [selectedSex, setSelectedSex] = useState(sexOptions[0]);
+  const [selectedRoleId, setSelectedRoleId] = useState(role.list[0].id);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [step]);
 
-  const currentRace = RACES.find((r) => r.id === selectedRace);
-  const currentClass = CLASSES.find((c) => c.id === selectedClass);
+  const currentOrigin = origin.list.find((o) => o.id === selectedOriginId);
+  const currentRole = role.list.find((r) => r.id === selectedRoleId);
+
   const characterImage = step === 1
-    ? getCharacterImage(selectedRace, selectedSex)
-    : getCharacterImage(selectedRace, selectedSex, selectedClass);
+    ? getCharacterImage(selectedOriginId, selectedSex)
+    : getCharacterImage(selectedOriginId, selectedSex, selectedRoleId);
 
   const computeAttributes = () => {
     return ATTRIBUTES.map((attr) => {
-      const raceMod = currentRace?.attributeModifiers?.[attr.id] ?? 0;
-      const classMod = currentClass?.attributeModifiers?.[attr.id] ?? 0;
+      const originMod = currentOrigin?.attributeModifiers?.[attr.id] ?? 0;
+      const roleMod = currentRole?.attributeModifiers?.[attr.id] ?? 0;
       return {
         id: attr.id,
         name: t(`attributes.${attr.id}.name`),
-        value: BASE_ATTRIBUTE_VALUE + raceMod + classMod,
-        raceMod,
-        classMod,
+        value: baseAttributeValue + originMod + roleMod,
+        raceMod: originMod,
+        classMod: roleMod,
       };
     });
   };
 
   const handleStart = () => {
-    const finalImage = getCharacterImage(selectedRace, selectedSex, selectedClass);
+    const finalImage = getCharacterImage(selectedOriginId, selectedSex, selectedRoleId);
+    console.log('Imagen final:', finalImage);
     navigateTo('game', {
       character: {
-        race: selectedRace,
-        class: selectedClass,
+        race: selectedOriginId,
+        class: selectedRoleId,
         sex: selectedSex,
         attributes: computeAttributes(),
         portrait: finalImage,
       },
     });
-
-
-
   };
 
   return (
-    <div className="cc-wrapper">
+    <div className="cc-wrapper" style={GAME_THEMES[selectedStory.theme] ?? {}}>
       <header className="cc-header">
-        <button className="cc-back" onClick={() => step === 1 ? navigateTo('mainMenu') : setStep(1)}>
+        <button className="cc-back" onClick={() => (step === 1 ? navigateTo('mainMenu') : setStep(1))}>
           ← {t('characterCreation.back')}
         </button>
         <h1>{t('characterCreation.title')}</h1>
         <div className="cc-steps">
-          <span className={step === 1 ? 'active' : ''}>1. {t('characterCreation.step1')}</span>
+          <span className={step === 1 ? 'active' : ''}>1. {t(origin.stepLabelKey)}</span>
           <span className="cc-steps-divider">›</span>
-          <span className={step === 2 ? 'active' : ''}>2. {t('characterCreation.step2')}</span>
+          <span className={step === 2 ? 'active' : ''}>2. {t(role.stepLabelKey)}</span>
         </div>
       </header>
 
       {step === 1 && (
         <div className="cc-step1">
           <div className="cc-race-list">
-            <h2>{t('characterCreation.selectRace')}</h2>
-            {RACES.map((race) => (
+            <h2>{t(origin.selectLabelKey)}</h2>
+            {origin.list.map((item) => (
               <div
-                key={race.id}
-                className={`cc-race-card ${selectedRace === race.id ? 'selected' : ''}`}
-                onClick={() => setSelectedRace(race.id)}
+                key={item.id}
+                className={`cc-race-card ${selectedOriginId === item.id ? 'selected' : ''}`}
+                onClick={() => setSelectedOriginId(item.id)}
               >
-                <h3>{t(`races.${race.id}.name`)}</h3>
-                <p>{t(`races.${race.id}.description`)}</p>
+                <div className="cc-race-card-header">
+                  {origin.getSymbol && origin.getSymbol(item.id) && (
+                    <img src={origin.getSymbol(item.id)} alt="" className="cc-clan-symbol" />
+                  )}
+                  <h3>{t(`${origin.i18nNamespace}.${item.id}.name`)}</h3>
+                </div>
+                <p>{t(`${origin.i18nNamespace}.${item.id}.description`)}</p>
               </div>
             ))}
           </div>
@@ -90,7 +95,7 @@ function CharacterCreation() {
             <div className="cc-sex-selector">
               <h2>{t('characterCreation.selectSex')}</h2>
               <div className="cc-sex-options">
-                {['male', 'female'].map((sex) => (
+                {sexOptions.map((sex) => (
                   <button
                     key={sex}
                     className={selectedSex === sex ? 'active' : ''}
@@ -104,39 +109,43 @@ function CharacterCreation() {
 
             <div className="cc-image-container">
               {characterImage
-                ? <img src={characterImage} alt={`${selectedRace} ${selectedSex}`} />
+                ? <img src={characterImage} alt={`${selectedOriginId} ${selectedSex}`} />
                 : <div className="cc-image-placeholder">?</div>
               }
             </div>
           </div>
 
           <div className="cc-race-info">
-            <h2>{t(`races.${selectedRace}.name`)}</h2>
+            <h2>{t(`${origin.i18nNamespace}.${selectedOriginId}.name`)}</h2>
 
             <div className="cc-info-block">
               <h3>⚔ {t('characterCreation.strengths')}</h3>
-              <p>{t(`races.${selectedRace}.strengths`)}</p>
+              <p>{t(`${origin.i18nNamespace}.${selectedOriginId}.strengths`)}</p>
             </div>
 
             <div className="cc-info-block">
               <h3>🛡 {t('characterCreation.weaknesses')}</h3>
-              <p>{t(`races.${selectedRace}.weaknesses`)}</p>
+              <p>{t(`${origin.i18nNamespace}.${selectedOriginId}.weaknesses`)}</p>
             </div>
 
             <div className="cc-info-block">
               <h3>💬 {t('characterCreation.npcAttitude')}</h3>
-              <p>{t(`races.${selectedRace}.npcAttitude`)}</p>
+              <p>{t(`${origin.i18nNamespace}.${selectedOriginId}.npcAttitude`)}</p>
             </div>
 
             <div className="cc-info-block">
               <h3>🤝 {t('characterCreation.relations')}</h3>
-              <p>{t(`races.${selectedRace}.relations.friendly`)}</p>
-              <p>{t(`races.${selectedRace}.relations.hostile`)}</p>
+              <p>{t(`${origin.i18nNamespace}.${selectedOriginId}.relations.friendly`)}</p>
+              <p>{t(`${origin.i18nNamespace}.${selectedOriginId}.relations.hostile`)}</p>
             </div>
 
             <div className="cc-info-block">
               <h3>✨ {t('characterCreation.recommendedClasses')}</h3>
-              <p>{currentRace.recommendedClasses.map((c) => t(`classes.${c}.name`)).join(', ')}</p>
+              <p>
+                {(currentOrigin[origin.recommendsField] ?? [])
+                  .map((roleId) => t(`${role.i18nNamespace}.${roleId}.name`))
+                  .join(', ')}
+              </p>
             </div>
 
             <button className="cc-next-btn" onClick={() => setStep(2)}>
@@ -149,18 +158,20 @@ function CharacterCreation() {
       {step === 2 && (
         <div className="cc-step2">
           <div className="cc-class-list">
-            <h2>{t('characterCreation.selectClass')}</h2>
-            {CLASSES.map((cls) => (
+            <h2>{t(role.selectLabelKey)}</h2>
+            {role.list.map((item) => (
               <div
-                key={cls.id}
-                className={`cc-class-card ${selectedClass === cls.id ? 'selected' : ''}`}
-                onClick={() => setSelectedClass(cls.id)}
+                key={item.id}
+                className={`cc-class-card ${selectedRoleId === item.id ? 'selected' : ''}`}
+                onClick={() => setSelectedRoleId(item.id)}
               >
-                <h3>{t(`classes.${cls.id}.name`)}</h3>
-                <p>{t(`classes.${cls.id}.description`)}</p>
+                <h3>{t(`${role.i18nNamespace}.${item.id}.name`)}</h3>
+                <p>{t(`${role.i18nNamespace}.${item.id}.description`)}</p>
                 <p className="cc-tip">
-                  {t('classRecommendation.label')}{' '}
-                  {cls.recommendedRaces.map((r) => t(`races.${r}.name`)).join(', ')}
+                  ✨ {t('classRecommendation.label')}{' '}
+                  {(item[role.recommendsField] ?? [])
+                    .map((originId) => t(`${origin.i18nNamespace}.${originId}.name`))
+                    .join(', ')}
                 </p>
               </div>
             ))}
@@ -169,7 +180,7 @@ function CharacterCreation() {
           <div className="cc-attributes-panel">
             <div className="cc-image-container small">
               {characterImage
-                ? <img src={characterImage} alt={`${selectedRace} ${selectedSex}`} />
+                ? <img src={characterImage} alt={`${selectedOriginId} ${selectedSex}`} />
                 : <div className="cc-image-placeholder">?</div>
               }
             </div>
@@ -182,12 +193,12 @@ function CharacterCreation() {
                   <span className="cc-attr-mods">
                     {attr.raceMod !== 0 && (
                       <span className={attr.raceMod > 0 ? 'positive' : 'negative'}>
-                        {attr.raceMod > 0 ? `+${attr.raceMod}` : attr.raceMod} {t('modifiers.race')}
+                        {attr.raceMod > 0 ? `+${attr.raceMod}` : attr.raceMod} {t(origin.modifierLabelKey)}
                       </span>
                     )}
                     {attr.classMod !== 0 && (
                       <span className={attr.classMod > 0 ? 'positive' : 'negative'}>
-                        {attr.classMod > 0 ? `+${attr.classMod}` : attr.classMod} {t('modifiers.class')}
+                        {attr.classMod > 0 ? `+${attr.classMod}` : attr.classMod} {t(role.modifierLabelKey)}
                       </span>
                     )}
                   </span>

@@ -44,9 +44,9 @@
 }
 
 .portrait-stat-value {
-    font-family: var(--font-heading);
-    font-size: 0.85rem;
-    color: var(--color-accent);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  color: var(--theme-accent, var(--color-accent));
 }
 
 @media (max-width: 640px) {

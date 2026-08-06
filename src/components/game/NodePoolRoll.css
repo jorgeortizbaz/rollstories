@@ -1,0 +1,110 @@
+.node-pool-roll {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pool-dice-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pool-roll-trigger {
+  padding: 0.75rem 2rem;
+}
+
+.pool-dice-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.pool-die {
+  width: 48px;
+  height: 52px;
+  clip-path: polygon(50% 0%, 90% 35%, 75% 100%, 25% 100%, 10% 35%);
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+}
+
+.pool-die.success {
+  border-color: var(--theme-accent, var(--color-accent));
+  color: var(--theme-accent, var(--color-accent));
+  box-shadow: 0 0 12px var(--theme-glow, rgba(139, 0, 0, 0.4));
+}
+
+.pool-die.rolling {
+  animation: dieShuffle 0.1s infinite;
+  border-color: var(--theme-accent, var(--color-accent));
+}
+
+@keyframes dieShuffle {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.pool-successes {
+  font-family: var(--font-heading);
+  color: var(--color-accent);
+  font-size: 1.1rem;
+}
+
+.willpower-btn {
+  border-color: #8b0000;
+  color: #d06060;
+}
+
+.willpower-btn:hover {
+  background: #8b0000;
+  color: white;
+}
+
+.willpower-used-note {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .pool-die {
+    width: 36px;
+    height: 36px;
+    font-size: 0.95rem;
+  }
+}
+
+.roll-target {
+  color: var(--theme-accent, var(--color-accent));
+}
+
+.roll-target strong {
+  color: var(--theme-accent, var(--color-accent));
+}
+
+.pool-injured-badge {
+  align-self: flex-start;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: #bf6767;
+  letter-spacing: 0.05em;
+}
+
+.injury-line {
+  color: #bf6767;
+}

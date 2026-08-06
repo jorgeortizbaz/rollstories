@@ -37,11 +37,9 @@
 .game-scene-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent 50%,
-    rgba(13, 13, 15, 0.95) 100%
-  );
+  background: linear-gradient(to bottom,
+      transparent 50%,
+      rgba(13, 13, 15, 0.95) 100%);
   z-index: 2;
 }
 
@@ -77,14 +75,62 @@
 
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .game-scene { height: 48vh; }
-  .game-npc { height: 40vh; }
-  .game-ui { padding: 1.5rem 1.5rem 7rem; }
+  .game-scene {
+    height: 48vh;
+  }
+
+  .game-npc {
+    height: 40vh;
+  }
+
+  .game-ui {
+    padding: 1.5rem 1.5rem 7rem;
+  }
 }
 
 @media (max-width: 640px) {
-  .game-scene { height: 35vh; }
-  .game-npc { height: 28vh; max-width: 42vw; }
-  .game-npcs { gap: 0.5rem; }
-  .game-ui { padding: 1rem 1rem 7rem; }
+  .game-scene {
+    height: 35vh;
+  }
+
+  .game-npc {
+    height: 28vh;
+    max-width: 42vw;
+  }
+
+  .game-npcs {
+    gap: 0.5rem;
+  }
+
+  .game-ui {
+    padding: 1rem 1rem 7rem;
+  }
+}
+
+/* Botón Vampiro*/
+
+.game-wrapper button:hover {
+  background: var(--theme-accent, var(--color-accent));
+  color: var(--theme-bg, var(--color-bg));
+}
+
+.game-wrapper button {
+  border-color: var(--theme-accent, var(--color-accent));
+  color: var(--theme-accent, var(--color-accent));
+}
+
+.game-wrapper .roll-attr-label,
+.game-wrapper .roll-target strong,
+.game-wrapper .pool-successes,
+.game-wrapper .combat-label,
+.game-wrapper .node-end-label,
+.game-wrapper h1,
+.game-wrapper h2,
+.game-wrapper h3 {
+  color: var(--theme-accent, var(--color-accent));
+}
+
+.game-wrapper .pool-die.success {
+  border-color: var(--theme-accent, var(--color-accent));
+  color: var(--theme-accent, var(--color-accent));
 }

@@ -1,4 +1,5 @@
 export default {
+  /*DND*/
   attributes: {
     strength: {
       name: 'Fuerza',
@@ -23,6 +24,22 @@ export default {
     charisma: {
       name: 'Carisma',
       description: 'Fuerza de personalidad. Afecta a la persuasión y al liderazgo.',
+    },
+    stamina: {
+      name: 'Resistencia',
+      description: 'Aguante físico y capacidad de resistir el dolor y el daño.',
+    },
+    manipulation: {
+      name: 'Manipulación',
+      description: 'Habilidad para mentir, persuadir y controlar a los demás.',
+    },
+    wits: {
+      name: 'Astucia',
+      description: 'Rapidez mental y capacidad de reacción ante lo inesperado.',
+    },
+    resolve: {
+      name: 'Fuerza de Voluntad',
+      description: 'Determinación mental y resistencia a la manipulación ajena.',
     },
   },
 
@@ -88,7 +105,7 @@ export default {
     cyberpunk: 'Cyberpunk',
     cthulhu: 'The Call of Cthulhu',
   },
-  
+
   common: {
     newGame: 'Nueva Partida',
     continueGame: 'Continuar',
@@ -168,6 +185,7 @@ export default {
   },
 
   characterCreation: {
+    /*DND*/
     title: 'Crea tu personaje',
     step1: 'Raza y Sexo',
     step2: 'Clase',
@@ -177,12 +195,19 @@ export default {
     strengths: 'Fortalezas',
     weaknesses: 'Debilidades',
     npcAttitude: 'Cómo te verán los PNJ',
-    relations: 'Relaciones raciales',
+    relations: 'Relaciones',
     recommendedClasses: 'Clases recomendadas',
     attributesPreview: 'Atributos resultantes',
     next: 'Siguiente',
     startGame: 'Comenzar aventura',
     back: 'Volver',
+
+    /*VAMPIRE*/
+
+    selectClan: 'Elige tu clan',
+    selectPredatorType: 'Elige tu tipo de depredador',
+    step1Clan: 'Clan y Sexo',
+    step2Predator: 'Tipo de Depredador',
   },
 
   game: {
@@ -202,11 +227,104 @@ export default {
     targetLabel: 'Objetivo',
     creditsAuthor: 'Historia original por',
     creditsTranslator: 'Traducción al ruso por',
+    successesLabel: 'Éxitos',
+    targetSuccessesLabel: 'Éxitos necesarios',
+    poolRollHint: 'Toca para tirar los dados',
+    willpowerButton: 'Gastar Fuerza de Voluntad (repetir 1 dado)',
+    willpowerUsedLabel: 'Has gastado tu Fuerza de Voluntad para esta historia',
+    diceWord: 'dado',
+    targetMinLabel: 'Mínimo para no fallar',
+    targetCleanLabel: 'Para un éxito limpio',
   },
 
   modifiers: {
+    /*DND*/
     race: 'raza',
     class: 'clase',
+
+    /*VAMPIRE*/
+
+    clan: 'clan',
+    predatorType: 'tipo de depredador',
+  },
+
+  /*VAMPIRE*/
+
+  clans: {
+    brujah: {
+      name: 'Brujah',
+      description: 'Guerreros y rebeldes gobernados por la pasión, propensos a la furia.',
+      strengths: 'Fuerza física notable y una determinación feroz en el combate.',
+      weaknesses: 'Su temperamento es una bomba de relojería; la ira nubla su juicio con facilidad.',
+      npcAttitude: 'Otros vampiros los ven como inestables pero útiles cuando hay que romper algo.',
+      relations: {
+        friendly: 'Comparten cierta afinidad salvaje con los Gangrel.',
+        hostile: 'Su rivalidad con los Ventrue es antigua y bien conocida en la Mascarada.',
+      },
+    },
+    toreador: {
+      name: 'Toreador',
+      description: 'Esteticistas obsesionados con la belleza, el arte y la pasión humana.',
+      strengths: 'Carisma magnético y una sensibilidad artística que cautiva a mortales e inmortales.',
+      weaknesses: 'Su fascinación por la belleza puede distraerlos en los peores momentos.',
+      npcAttitude: 'Bienvenidos en cualquier círculo social; su encanto abre puertas que otros clanes no pueden.',
+      relations: {
+        friendly: 'Mantienen una alianza cómoda y elegante con los Ventrue.',
+        hostile: 'Desprecian abiertamente la crudeza de los Nosferatu.',
+      },
+    },
+    ventrue: {
+      name: 'Ventrue',
+      description: 'La aristocracia de los no-muertos, nacidos para gobernar y mandar.',
+      strengths: 'Voluntad de hierro y un instinto natural para el liderazgo y la política.',
+      weaknesses: 'Su rigidez mental los hace lentos para adaptarse a lo inesperado.',
+      npcAttitude: 'Respetados y temidos a partes iguales; se espera que estén al mando de cualquier sala que pisen.',
+      relations: {
+        friendly: 'Ven a los Toreador como socios naturales en la alta sociedad de la noche.',
+        hostile: 'Su desprecio mutuo con los Brujah es legendario entre la Camarilla.',
+      },
+    },
+    nosferatu: {
+      name: 'Nosferatu',
+      description: 'Desfigurados por la Sangre, viven ocultos y comercian con secretos.',
+      strengths: 'Astucia excepcional y una red de información que nadie más posee.',
+      weaknesses: 'Su apariencia monstruosa los obliga a esconderse; el trato social directo les resulta muy difícil.',
+      npcAttitude: 'Nadie los ve, pero todos temen lo que puedan saber sobre ellos.',
+      relations: {
+        friendly: 'Comparten una comprensión silenciosa con los Malkavian, otros marginados de la sociedad vampírica.',
+        hostile: 'El rechazo estético de los Toreador hacia ellos es mutuo y profundo.',
+      },
+    },
+    malkavian: {
+      name: 'Malkavian',
+      description: 'Marcados por una locura que distorsiona la realidad pero también revela verdades ocultas.',
+      strengths: 'Una intuición perturbadora que roza la clarividencia y desconcierta a sus enemigos.',
+      weaknesses: 'Su mente fracturada los hace impredecibles, incluso para ellos mismos.',
+      npcAttitude: 'Provocan una mezcla de fascinación y temor; nadie sabe qué esperar de ellos.',
+      relations: {
+        friendly: 'Encuentran comprensión mutua con los Nosferatu, ambos marginados por su propia naturaleza.',
+        hostile: 'No mantienen rivalidades fijas; su relación con los demás clanes es tan impredecible como ellos mismos.',
+      },
+    },
+  },
+
+  predatorTypes: {
+    bagger: {
+      name: 'Sanguijuela',
+      description: 'Se alimenta de bolsas de sangre robadas de hospitales o bancos de sangre, evitando el contacto directo.',
+    },
+    osteopath: {
+      name: 'Osteópata',
+      description: 'Se hace pasar por personal médico para extraer sangre bajo la excusa de un tratamiento.',
+    },
+    siren: {
+      name: 'Sirena',
+      description: 'Seduce a sus víctimas, convirtiendo la alimentación en un juego de atracción y control.',
+    },
+    sandman: {
+      name: 'Hombre de Arena',
+      description: 'Se cuela en los sueños de sus víctimas, alimentándose mientras duermen sin que lo noten.',
+    },
   },
 
 };

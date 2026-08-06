@@ -6,19 +6,18 @@ const GameContext = createContext(null);
 export function GameProvider({ children, storyId, character: characterProp }) {
   const saved = loadGame(storyId);
 
-  const [currentNodeId, setCurrentNodeId] = useState(
-    saved?.currentNodeId ?? 'inicio'
-  );
+  const [currentNodeId, setCurrentNodeId] = useState(saved?.currentNodeId ?? 'inicio');
   const [flags, setFlags] = useState(saved?.flags ?? {});
   const [clues, setClues] = useState(saved?.clues ?? []);
   const [isInjured, setIsInjured] = useState(saved?.isInjured ?? false);
+  const [willpowerUsed, setWillpowerUsed] = useState(saved?.willpowerUsed ?? false);
   const [character] = useState(saved?.character ?? characterProp);
   const [pendingRoll, setPendingRoll] = useState(null);
   const [lastRollResult, setLastRollResult] = useState(null);
 
   useEffect(() => {
-    saveGame(storyId, { currentNodeId, flags, clues, isInjured, character });
-  }, [currentNodeId, flags, clues, isInjured]);
+    saveGame(storyId, { currentNodeId, flags, clues, isInjured, character, willpowerUsed });
+  }, [currentNodeId, flags, clues, isInjured, willpowerUsed]);
 
   const goToNode = (nodeId) => {
     setCurrentNodeId(nodeId);
@@ -38,6 +37,10 @@ export function GameProvider({ children, storyId, character: characterProp }) {
     return Math.floor(Math.random() * sides) + 1;
   };
 
+  const rollD10Pool = (count) => {
+    return Array.from({ length: count }, () => Math.floor(Math.random() * 10) + 1);
+  };
+
   const getAttributeValue = (attributeId) => {
     return character?.attributes?.find((a) => a.id === attributeId)?.value ?? 10;
   };
@@ -53,10 +56,11 @@ export function GameProvider({ children, storyId, character: characterProp }) {
     <GameContext.Provider value={{
       currentNodeId, flags, clues, isInjured,
       character,
+      willpowerUsed, setWillpowerUsed,
       pendingRoll, setPendingRoll,
       lastRollResult, setLastRollResult,
       goToNode, addClue, setFlag,
-      rollDice, getAttributeValue, getClueBonus,
+      rollDice, rollD10Pool, getAttributeValue, getClueBonus,
       setIsInjured,
     }}>
       {children}

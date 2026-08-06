@@ -1,4 +1,5 @@
 export default {
+  /*DND*/
   attributes: {
     strength: {
       name: 'Strength',
@@ -125,6 +126,7 @@ export default {
     comingSoon: 'In development',
   },
   characterCreation: {
+    /*DND*/
     title: 'Create your character',
     step1: 'Race & Sex',
     step2: 'Class',
@@ -134,12 +136,19 @@ export default {
     strengths: 'Strengths',
     weaknesses: 'Weaknesses',
     npcAttitude: 'How NPCs will see you',
-    relations: 'Racial relations',
+    relations: 'Relations',
     recommendedClasses: 'Recommended classes',
     attributesPreview: 'Resulting attributes',
     next: 'Next',
     startGame: 'Begin adventure',
     back: 'Back',
+
+    /*VAMPIRE*/
+
+    selectClan: 'Choose your clan',
+    selectPredatorType: 'Choose your predator type',
+    step1Clan: 'Clan & Sex',
+    step2Predator: 'Predator Type',
   },
   sex: {
     male: 'Male',
@@ -166,8 +175,92 @@ export default {
   },
 
   modifiers: {
+    /*DND*/
     race: 'race',
     class: 'class',
+
+    /*VAMPIRE*/
+    clan: 'clan',
+    predatorType: 'predator type',
+  },
+
+  /*VAMPIRE*/
+
+  clans: {
+    brujah: {
+      name: 'Brujah',
+      description: 'Warriors and rebels ruled by passion, prone to fury.',
+      strengths: 'Notable physical strength and a fierce determination in combat.',
+      weaknesses: 'Their temper is a ticking bomb; rage clouds their judgment easily.',
+      npcAttitude: 'Other vampires see them as unstable but useful when something needs breaking.',
+      relations: {
+        friendly: 'They share a certain savage kinship with the Gangrel.',
+        hostile: 'Their rivalry with the Ventrue is ancient and well known throughout the Masquerade.',
+      },
+    },
+    toreador: {
+      name: 'Toreador',
+      description: 'Aesthetes obsessed with beauty, art, and human passion.',
+      strengths: 'Magnetic charisma and an artistic sensibility that captivates mortals and immortals alike.',
+      weaknesses: 'Their fascination with beauty can distract them at the worst possible moments.',
+      npcAttitude: 'Welcome in any social circle; their charm opens doors other clans cannot.',
+      relations: {
+        friendly: 'They maintain a comfortable, elegant alliance with the Ventrue.',
+        hostile: 'They openly despise the crudeness of the Nosferatu.',
+      },
+    },
+    ventrue: {
+      name: 'Ventrue',
+      description: 'The aristocracy of the undead, born to rule and command.',
+      strengths: 'Iron willpower and a natural instinct for leadership and politics.',
+      weaknesses: 'Their rigid mindset makes them slow to adapt to the unexpected.',
+      npcAttitude: 'Respected and feared in equal measure; expected to be in charge of any room they enter.',
+      relations: {
+        friendly: 'They see the Toreador as natural partners in the high society of the night.',
+        hostile: 'Their mutual contempt with the Brujah is legendary within the Camarilla.',
+      },
+    },
+    nosferatu: {
+      name: 'Nosferatu',
+      description: 'Disfigured by the Blood, they live hidden and trade in secrets.',
+      strengths: 'Exceptional cunning and an information network no one else possesses.',
+      weaknesses: 'Their monstrous appearance forces them into hiding; direct social contact is very difficult for them.',
+      npcAttitude: 'No one sees them, but everyone fears what they might know.',
+      relations: {
+        friendly: 'They share a silent understanding with the Malkavians, fellow outcasts of vampire society.',
+        hostile: "The Toreador's aesthetic rejection of them is mutual and deep.",
+      },
+    },
+    malkavian: {
+      name: 'Malkavian',
+      description: 'Marked by a madness that distorts reality but also reveals hidden truths.',
+      strengths: 'A disturbing intuition bordering on clairvoyance that unsettles their enemies.',
+      weaknesses: 'Their fractured mind makes them unpredictable, even to themselves.',
+      npcAttitude: 'They provoke a mix of fascination and fear; no one knows what to expect from them.',
+      relations: {
+        friendly: 'They find mutual understanding with the Nosferatu, both outcasts by their own nature.',
+        hostile: 'They hold no fixed rivalries; their relationship with other clans is as unpredictable as they are.',
+      },
+    },
+  },
+
+  predatorTypes: {
+    bagger: {
+      name: 'Bagger',
+      description: 'Feeds on blood bags stolen from hospitals or blood banks, avoiding direct contact.',
+    },
+    osteopath: {
+      name: 'Osteopath',
+      description: 'Poses as medical staff to draw blood under the pretense of treatment.',
+    },
+    siren: {
+      name: 'Siren',
+      description: 'Seduces their victims, turning feeding into a game of attraction and control.',
+    },
+    sandman: {
+      name: 'Sandman',
+      description: "Slips into their victims' dreams, feeding while they sleep unnoticed.",
+    },
   },
 
 };
