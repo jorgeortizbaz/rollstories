@@ -18,7 +18,7 @@ function CharacterCreation() {
   const [selectedRoleId, setSelectedRoleId] = useState(role.list[0].id);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    document.getElementById('root').scrollTop = 0;
   }, [step]);
 
   const currentOrigin = origin.list.find((o) => o.id === selectedOriginId);
@@ -43,23 +43,23 @@ function CharacterCreation() {
   };
 
   const handleStart = () => {
-    const finalImage = getCharacterImage(selectedOriginId, selectedSex, selectedRoleId);
-    console.log('Imagen final:', finalImage);
-    navigateTo('game', {
-      character: {
-        race: selectedOriginId,
-        class: selectedRoleId,
-        sex: selectedSex,
-        attributes: computeAttributes(),
-        portrait: finalImage,
-      },
-    });
-  };
+  const finalImage = getCharacterImage(selectedOriginId, selectedSex, selectedRoleId);
+  document.getElementById('root').scrollTop = 0;
+  navigateTo('game', {
+    character: {
+      race: selectedOriginId,
+      class: selectedRoleId,
+      sex: selectedSex,
+      attributes: computeAttributes(),
+      portrait: finalImage,
+    },
+  });
+};
 
   return (
     <div className="cc-wrapper" style={GAME_THEMES[selectedStory.theme] ?? {}}>
       <header className="cc-header">
-        <button className="cc-back" onClick={() => (step === 1 ? navigateTo('mainMenu') : setStep(1))}>
+        <button className="cc-back" onClick={() => { document.getElementById('root').scrollTop = 0; step === 1 ? navigateTo('mainMenu') : setStep(1); }}>
           ← {t('characterCreation.back')}
         </button>
         <h1>{t('characterCreation.title')}</h1>
@@ -148,7 +148,7 @@ function CharacterCreation() {
               </p>
             </div>
 
-            <button className="cc-next-btn" onClick={() => setStep(2)}>
+            <button className="cc-next-btn" onClick={() => { document.getElementById('root').scrollTop = 0; setStep(2); }}>
               {t('characterCreation.next')} →
             </button>
           </div>

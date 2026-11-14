@@ -20,10 +20,11 @@ export function GameProvider({ children, storyId, character: characterProp }) {
   }, [currentNodeId, flags, clues, isInjured, willpowerUsed]);
 
   const goToNode = (nodeId) => {
-    setCurrentNodeId(nodeId);
-    setPendingRoll(null);
-    setLastRollResult(null);
-  };
+  document.getElementById('root').scrollTop = 0;
+  setCurrentNodeId(nodeId);
+  setPendingRoll(null);
+  setLastRollResult(null);
+};
 
   const addClue = (clue) => {
     setClues((prev) => prev.includes(clue) ? prev : [...prev, clue]);

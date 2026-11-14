@@ -172,6 +172,14 @@ export default {
     targetLabel: 'Цель',
     creditsAuthor: 'Оригинальная история:',
     creditsTranslator: 'Перевод на русский:',
+    successesLabel: 'Успехи',
+    targetSuccessesLabel: 'Необходимые успехи',
+    poolRollHint: 'Нажмите, чтобы бросить кости',
+    willpowerButton: 'Потратить Силу Воли (перебросить 1 кость)',
+    willpowerUsedLabel: 'Вы потратили Силу Воли в этой истории',
+    diceWord: 'кость',
+    targetMinLabel: 'Минимум, чтобы не провалить',
+    targetCleanLabel: 'Для чистого успеха',
   },
 
   modifiers: {

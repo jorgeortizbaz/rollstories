@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { useGame } from '../context/GameContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -6,6 +6,7 @@ import { GNOMABANDISTAS_NODES } from '../data/systems/dnd/stories/gnomabandistas
 import { GNOMABANDISTAS_TEXTS } from '../data/systems/dnd/stories/gnomabandistas_texts';
 import { GNOMABANDISTAS_CREDITS } from '../data/systems/dnd/stories/gnomabandistas_credits';
 import { SANGRE_NODES } from '../data/systems/vampire/stories/sangre_que_nos_une';
+import { SANGRE_TEXTS } from '../data/systems/vampire/stories/sangre_que_nos_une_texts';
 import { getSceneImage } from '../assets/scenes/index.js';
 import { getNpcImage } from '../assets/npcs/index.js';
 import NodeNarration from '../components/game/NodeNarration';
@@ -15,7 +16,6 @@ import NodeCombat from '../components/game/NodeCombat';
 import NodePoolRoll from '../components/game/NodePoolRoll';
 import CharacterPortrait from '../components/game/CharacterPortrait';
 import './Game.css';
-import { THEMES } from '../data/themes';
 import { GAME_THEMES } from '../data/themes';
 
 const STORY_NODES = {
@@ -25,6 +25,7 @@ const STORY_NODES = {
 
 const STORY_TEXTS = {
   gnomabandistas: GNOMABANDISTAS_TEXTS,
+  'vampire-masquerade': SANGRE_TEXTS,
 };
 
 const STORY_CREDITS = {
@@ -39,9 +40,7 @@ function Game() {
   const nodes = STORY_NODES[selectedStory.id];
   const node = nodes[currentNodeId];
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [currentNodeId]);
+  
 
   useEffect(() => {
     if (node?.onEnter) {

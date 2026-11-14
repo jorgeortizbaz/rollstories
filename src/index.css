@@ -36,6 +36,10 @@ html, body, #root {
   height: 100%;
 }
 
+html, body {
+  overflow-anchor: none;
+}
+
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
@@ -73,4 +77,8 @@ button:hover {
 html, body, #root {
   height: 100%;
   overflow-x: hidden;
+}
+
+#root {
+  overflow-y: visible;
 }
